@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/groupsFragment"
+        android:icon="@drawable/ic_groups"
+        android:title="Groups" />
+    <item
+        android:id="@+id/matchesFragment"
+        android:icon="@drawable/ic_matches"
+        android:title="Matches" />
+    <item
+        android:id="@+id/bracketFragment"
+        android:icon="@drawable/ic_brackets"
+        android:title="Bracket" />
+    <item
+        android:id="@+id/liveFragment"
+        android:icon="@drawable/ic_live"
+        android:title="Live" />
+</menu>

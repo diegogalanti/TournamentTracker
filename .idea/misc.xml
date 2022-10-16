@@ -10,6 +10,12 @@
         <entry key="..\:/SportsOracle/app/src/main/res/layout/groups_fragment.xml" value="0.1859375" />
         <entry key="..\:/SportsOracle/app/src/main/res/layout/live_fragment.xml" value="0.1859375" />
         <entry key="..\:/SportsOracle/app/src/main/res/layout/matches_fragment.xml" value="0.1859375" />
+        <entry key="..\:/TournamentTracker/app/src/main/res/drawable/ic_live.xml" value="0.1" />
+        <entry key="..\:/TournamentTracker/app/src/main/res/drawable/ic_matches.xml" value="0.104" />
+        <entry key="..\:/TournamentTracker/app/src/main/res/layout/activity_main.xml" value="0.2513586956521739" />
+        <entry key="..\:/TournamentTracker/app/src/main/res/layout/bracket_fragment.xml" value="0.2513586956521739" />
+        <entry key="..\:/TournamentTracker/app/src/main/res/layout/fragment_bracket.xml" value="0.2513586956521739" />
+        <entry key="..\:/TournamentTracker/app/src/main/res/menu/bottom_menu.xml" value="0.3645833333333333" />
       </map>
     </option>
   </component>

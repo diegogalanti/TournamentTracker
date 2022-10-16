@@ -1,6 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/nav_graph">
-
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/groupsFragment">
+    <fragment
+        android:id="@+id/groupsFragment"
+        android:name="com.gallardo.sportsoracle.GroupsFragment"
+        android:label="fragment_groups"
+        tools:layout="@layout/fragment_groups" />
+    <fragment
+        android:id="@+id/matchesFragment"
+        android:name="com.gallardo.sportsoracle.MatchesFragment"
+        android:label="fragment_matches"
+        tools:layout="@layout/fragment_matches" />
+    <fragment
+        android:id="@+id/liveFragment"
+        android:name="com.gallardo.sportsoracle.LiveFragment"
+        android:label="fragment_live"
+        tools:layout="@layout/fragment_live" />
+    <fragment
+        android:id="@+id/bracketFragment"
+        android:name="com.gallardo.sportsoracle.BracketFragment"
+        android:label="fragment_bracket"
+        tools:layout="@layout/fragment_bracket" />
 </navigation>
