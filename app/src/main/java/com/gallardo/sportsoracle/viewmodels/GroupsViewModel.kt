@@ -1,24 +1,27 @@
 package com.gallardo.sportsoracle.viewmodels
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.gallardo.sportsoracle.model.Group
 import com.gallardo.sportsoracle.network.FootballApi
-import com.gallardo.sportsoracle.network.Group
 import kotlinx.coroutines.launch
 
 class GroupsViewModel : ViewModel() {
 
-    val groups = MutableLiveData<List<Group>>()
+    private val _groups = MutableLiveData<List<Group>>()
+
+    val groups: LiveData<List<Group>> = _groups
 
     init {
-        getLeagues()
+        getGroups()
     }
 
-    private fun getLeagues() {
+    private fun getGroups() {
         viewModelScope.launch {
-            groups.value = FootballApi.retrofitService.getGroups().items
+            _groups.value = FootballApi.retrofitService.getGroups().items
             Log.e("Foi",groups.value.toString())
         }
     }
