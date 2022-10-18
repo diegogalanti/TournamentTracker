@@ -67,4 +67,11 @@ dependencies {
     implementation "androidx.legacy:legacy-support-v4:1.0.0"
     kapt "androidx.room:room-compiler:2.4.3"
     implementation "androidx.room:room-ktx:2.4.3"
+
+    //Jetpack Window Manager
+    implementation("androidx.window:window:1.0.0")
+
+    //coil
+    implementation "io.coil-kt:coil-svg:2.2.2"
+    implementation "io.coil-kt:coil:2.2.2"
 }

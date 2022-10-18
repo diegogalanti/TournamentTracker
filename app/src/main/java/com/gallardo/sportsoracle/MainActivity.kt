@@ -1,14 +1,15 @@
 package com.gallardo.sportsoracle
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.navigation.findNavController
+import android.util.Log
+import android.view.View
+import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import com.gallardo.sportsoracle.viewmodels.GroupsViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.button.MaterialButton
+
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,5 +19,23 @@ class MainActivity : AppCompatActivity() {
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
         bottomNavigationView.setupWithNavController(navController)
+    }
+
+    fun expandCard(arrow: View) {
+        Log.e("funfa","mesmo")
+        val parent = arrow.parent as ViewGroup
+        val hiddenGroup = parent.findViewById<View>(R.id.expand_group)
+
+
+            if (hiddenGroup.visibility === View.VISIBLE) {
+//                TransitionManager().beginDelayedTransition(cardView, AutoTransition())
+                hiddenGroup.visibility = View.GONE
+                (arrow as MaterialButton).setIconResource(R.drawable.ic_expand_more_24)
+            } else {
+//                TransitionManager.beginDelayedTransition(cardView, AutoTransition())
+                hiddenGroup.visibility = View.VISIBLE
+                (arrow as MaterialButton).setIconResource(R.drawable.ic_expand_less_24)
+            }
+
     }
 }
