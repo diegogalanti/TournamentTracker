@@ -22,9 +22,45 @@ interface FootballApiService {
     @Headers(
         "X-API-Key: a07grhue_tQujP5CixjTwDQc3jYczBeYF3gDz3WSw"
     )
+    @POST("group/query")
+    suspend fun getGroups() : GroupResponse
 
-    @POST("Groups/query")
-    suspend fun getGroups() : Response
+    @Headers(
+        "X-API-Key: a07grhue_tQujP5CixjTwDQc3jYczBeYF3gDz3WSw"
+    )
+    @POST("card/query")
+    suspend fun getCards() : CardResponse
+
+    @Headers(
+        "X-API-Key: a07grhue_tQujP5CixjTwDQc3jYczBeYF3gDz3WSw"
+    )
+    @POST("goal/query")
+    suspend fun getGoals() : GoalResponse
+
+    @Headers(
+        "X-API-Key: a07grhue_tQujP5CixjTwDQc3jYczBeYF3gDz3WSw"
+    )
+    @POST("match/query")
+    suspend fun getMatches() : MatchResponse
+
+    @Headers(
+        "X-API-Key: a07grhue_tQujP5CixjTwDQc3jYczBeYF3gDz3WSw"
+    )
+    @POST("squad/query")
+    suspend fun getSquads() : SquadResponse
+
+    @Headers(
+        "X-API-Key: a07grhue_tQujP5CixjTwDQc3jYczBeYF3gDz3WSw"
+    )
+    @POST("stadium/query")
+    suspend fun getStadiums() : StadiumResponse
+
+    @Headers(
+        "X-API-Key: a07grhue_tQujP5CixjTwDQc3jYczBeYF3gDz3WSw"
+    )
+    @POST("team/query")
+    suspend fun getTeams() : TeamResponse
+
 }
 
 object FootballApi {

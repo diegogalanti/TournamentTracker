@@ -28,9 +28,9 @@
                 android:id="@+id/group_teams"
                 android:layout_width="match_parent"
                 android:layout_height="90dp"
-                android:columnCount="@{group.teams.size()}"
+                android:columnCount="4"
                 android:orientation="horizontal"
-                app:group_teams="@{group.teams}"
+
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 

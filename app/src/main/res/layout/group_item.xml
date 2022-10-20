@@ -20,7 +20,6 @@
             android:scaleType="fitXY"
             android:layout_height="0dp"
             android:layout_width="0dp"
-            app:bind_image="@{team.logo}"
             app:layout_constraintHeight_percent="0.75"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"

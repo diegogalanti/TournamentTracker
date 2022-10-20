@@ -22,7 +22,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun expandCard(arrow: View) {
-        Log.e("funfa","mesmo")
         val parent = arrow.parent as ViewGroup
         val hiddenGroup = parent.findViewById<View>(R.id.expand_group)
 

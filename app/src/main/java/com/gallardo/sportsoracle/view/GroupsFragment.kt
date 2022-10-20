@@ -18,8 +18,6 @@ import com.gallardo.sportsoracle.viewmodels.GroupsViewModel
 class GroupsFragment : Fragment() {
     private val groupsViewModel: GroupsViewModel by activityViewModels()
 
-//    private var binding: FragmentGroupsBinding? = null
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
