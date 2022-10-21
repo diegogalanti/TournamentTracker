@@ -6,7 +6,23 @@ import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 import com.squareup.moshi.Json
 
-@Entity
+@Entity(
+    foreignKeys = [
+        ForeignKey(
+            entity = Match::class,
+            parentColumns = arrayOf("key"),
+            childColumns = arrayOf("match_key"),
+            onDelete = ForeignKey.CASCADE,
+            onUpdate = ForeignKey.CASCADE
+    ),
+        ForeignKey(
+            entity = Squad::class,
+            parentColumns = arrayOf("key"),
+            childColumns = arrayOf("squad_key"),
+            onDelete = ForeignKey.CASCADE,
+            onUpdate = ForeignKey.CASCADE
+        )]
+)
 data class Card(
     @PrimaryKey
     val key: String,

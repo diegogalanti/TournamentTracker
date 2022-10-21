@@ -2,10 +2,41 @@ package com.gallardo.sportsoracle.model
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 import com.squareup.moshi.Json
 
-@Entity
+@Entity(
+    foreignKeys = [
+        ForeignKey(
+            entity = Group::class,
+            parentColumns = arrayOf("key"),
+            childColumns = arrayOf("group_key"),
+            onDelete = ForeignKey.CASCADE,
+            onUpdate = ForeignKey.CASCADE
+        ),
+        ForeignKey(
+            entity = Stadium::class,
+            parentColumns = arrayOf("key"),
+            childColumns = arrayOf("stadium_key"),
+            onDelete = ForeignKey.CASCADE,
+            onUpdate = ForeignKey.CASCADE
+        ),
+        ForeignKey(
+            entity = Team::class,
+            parentColumns = arrayOf("key"),
+            childColumns = arrayOf("team_one_key"),
+            onDelete = ForeignKey.CASCADE,
+            onUpdate = ForeignKey.CASCADE
+        ),
+        ForeignKey(
+            entity = Team::class,
+            parentColumns = arrayOf("key"),
+            childColumns = arrayOf("team_two_key"),
+            onDelete = ForeignKey.CASCADE,
+            onUpdate = ForeignKey.CASCADE
+        )]
+)
 data class Match(
     @PrimaryKey
     val key: String,
