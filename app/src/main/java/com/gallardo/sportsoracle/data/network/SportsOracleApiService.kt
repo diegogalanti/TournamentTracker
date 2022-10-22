@@ -1,4 +1,4 @@
-package com.gallardo.sportsoracle.network
+package com.gallardo.sportsoracle.data.network
 
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -11,6 +11,7 @@ private const val BASE_URL = "https://database.deta.sh/v1/a07grhue/"
 
 private val moshi = Moshi.Builder()
     .add(KotlinJsonAdapterFactory())
+    .add(JsonAdapters())
     .build()
 
 private val retrofit = Retrofit.Builder()

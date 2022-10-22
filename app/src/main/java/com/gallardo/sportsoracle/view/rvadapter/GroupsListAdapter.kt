@@ -10,13 +10,14 @@ import com.gallardo.sportsoracle.R
 import com.gallardo.sportsoracle.databinding.GroupItemBinding
 import com.gallardo.sportsoracle.databinding.GroupTableBinding
 import com.gallardo.sportsoracle.model.Group
+import com.gallardo.sportsoracle.viewmodels.GroupsViewModel
 
-class GroupsListAdapter : ListAdapter<Group, GroupsListAdapter.GroupViewHolder>(DiffCallback) {
+class GroupsListAdapter(private val viewModel: GroupsViewModel) : ListAdapter<Group, GroupsListAdapter.GroupViewHolder>(DiffCallback) {
 
-
-    class GroupViewHolder(private val binding : GroupTableBinding) : RecyclerView.ViewHolder(binding.root) {
+    class GroupViewHolder(private val binding : GroupTableBinding, private val viewModel: GroupsViewModel) : RecyclerView.ViewHolder(binding.root) {
         fun bind (group: Group) {
             binding.group = group
+            binding.groupsViewModel = viewModel
         }
     }
 
@@ -26,7 +27,7 @@ class GroupsListAdapter : ListAdapter<Group, GroupsListAdapter.GroupViewHolder>(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GroupViewHolder {
-        return GroupViewHolder(GroupTableBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+        return GroupViewHolder(GroupTableBinding.inflate(LayoutInflater.from(parent.context), parent, false), viewModel)
     }
 
     companion object DiffCallback : DiffUtil.ItemCallback<Group>() {

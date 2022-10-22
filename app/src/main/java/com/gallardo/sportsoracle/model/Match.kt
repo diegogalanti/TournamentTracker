@@ -1,47 +1,30 @@
 package com.gallardo.sportsoracle.model
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.ForeignKey
-import androidx.room.PrimaryKey
+import androidx.room.*
+import com.gallardo.sportsoracle.data.database.DateConverter
+import com.gallardo.sportsoracle.data.network.StringToDate
 import com.squareup.moshi.Json
+import java.util.*
 
 @Entity(
+    //indices = [Index("group_key"),Index("stadium_key"),Index("team_one_key"),Index("team_two_key")],
     foreignKeys = [
-        ForeignKey(
-            entity = Group::class,
-            parentColumns = arrayOf("key"),
-            childColumns = arrayOf("group_key"),
-            onDelete = ForeignKey.CASCADE,
-            onUpdate = ForeignKey.CASCADE
-        ),
         ForeignKey(
             entity = Stadium::class,
             parentColumns = arrayOf("key"),
             childColumns = arrayOf("stadium_key"),
             onDelete = ForeignKey.CASCADE,
             onUpdate = ForeignKey.CASCADE
-        ),
-        ForeignKey(
-            entity = Team::class,
-            parentColumns = arrayOf("key"),
-            childColumns = arrayOf("team_one_key"),
-            onDelete = ForeignKey.CASCADE,
-            onUpdate = ForeignKey.CASCADE
-        ),
-        ForeignKey(
-            entity = Team::class,
-            parentColumns = arrayOf("key"),
-            childColumns = arrayOf("team_two_key"),
-            onDelete = ForeignKey.CASCADE,
-            onUpdate = ForeignKey.CASCADE
-        )]
+        )
+    ]
 )
+@TypeConverters(DateConverter::class)
 data class Match(
     @PrimaryKey
     val key: String,
 
-    val date: String,
+    @StringToDate
+    val date: Date,
 
     @ColumnInfo(name = "group_key")
     @Json(name = "group_key")
@@ -49,7 +32,7 @@ data class Match(
 
     @ColumnInfo(name = "match_number")
     @Json(name = "match_number")
-    val matchNumber: String,
+    val matchNumber: Int,
 
     @ColumnInfo(name = "stadium_key")
     @Json(name = "stadium_key")
@@ -63,5 +46,6 @@ data class Match(
     @Json(name = "team_one_key")
     val teamOneKey: String,
 
-    val time: String
+    @StringToDate
+    val time: Date
 )

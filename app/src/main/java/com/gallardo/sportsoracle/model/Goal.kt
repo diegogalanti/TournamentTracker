@@ -1,12 +1,11 @@
 package com.gallardo.sportsoracle.model
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.ForeignKey
-import androidx.room.PrimaryKey
+import androidx.room.*
+import com.gallardo.sportsoracle.data.network.StringToBoolean
 import com.squareup.moshi.Json
 
 @Entity(
+    //indices = [Index("match_key"), Index("squad_key"), Index("team_key")],
     foreignKeys = [
         ForeignKey(
             entity = Match::class,
@@ -40,9 +39,10 @@ data class Goal(
 
     val moment: String,
 
+    @StringToBoolean
     @Json(name = "own_goal")
     @ColumnInfo(name = "own_goal")
-    val ownGoal: String,
+    val ownGoal: Boolean,
 
     @Json(name = "squad_key")
     @ColumnInfo(name = "squad_key")

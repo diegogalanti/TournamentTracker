@@ -8,7 +8,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
+import coil.Coil
+import coil.ImageLoader
+import coil.decode.SvgDecoder
+import coil.disk.DiskCache
 import com.gallardo.sportsoracle.R
 import com.gallardo.sportsoracle.databinding.FragmentGroupsBinding
 import com.gallardo.sportsoracle.view.rvadapter.GroupsListAdapter
@@ -16,6 +21,7 @@ import com.gallardo.sportsoracle.viewmodels.GroupsViewModel
 
 
 class GroupsFragment : Fragment() {
+
     private val groupsViewModel: GroupsViewModel by activityViewModels()
 
     override fun onCreateView(
@@ -25,10 +31,13 @@ class GroupsFragment : Fragment() {
         val binding = FragmentGroupsBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
         binding.groupsViewModel = groupsViewModel
-        binding.groupList.adapter = GroupsListAdapter()
-        binding.groupList.addItemDecoration(MarginItemDecoration(24))
+        binding.groupList.adapter = GroupsListAdapter(groupsViewModel)
+        binding.groupList.addItemDecoration(MarginItemDecoration(32))
+
         return binding.root
     }
+
+
 }
 
 class MarginItemDecoration(private val spaceSize: Int) : RecyclerView.ItemDecoration() {

@@ -1,82 +1,36 @@
 package com.gallardo.sportsoracle.viewmodels
 
+import android.app.Application
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
+import com.gallardo.sportsoracle.data.SportsOracleRepository
+import com.gallardo.sportsoracle.data.database.SportsOracleDatabase.Companion.getDatabase
 import com.gallardo.sportsoracle.model.Group
-import com.gallardo.sportsoracle.network.FootballApi
+import com.gallardo.sportsoracle.data.network.FootballApi
+import com.gallardo.sportsoracle.model.Team
 import kotlinx.coroutines.launch
-import java.io.File
+import kotlinx.coroutines.runBlocking
+import okhttp3.internal.wait
+import java.io.IOException
 
 
-class GroupsViewModel : ViewModel() {
+class GroupsViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val _groups = MutableLiveData<List<Group>>()
-
-    val groups: LiveData<List<Group>> = _groups
+    private val sportsOracleRepository = SportsOracleRepository(getDatabase(application))
 
     init {
-        getCards()
-        getGoals()
-        getGroups()
-        getMatches()
-        getSquads()
-        getStadiums()
-        getTeams()
+        refreshDataFromRepository()
     }
 
-    private fun getTeams() {
-        viewModelScope.launch {
-            Log.e("Groups", FootballApi.retrofitService.getTeams().items.toString())
+    val groups : List<Group> = sportsOracleRepository.getGroups()
+
+    fun getGroupTeams(groupKey: String) : List<Team> {
+        return sportsOracleRepository.getGroupTeams(groupKey)
+    }
+
+    private fun refreshDataFromRepository() {
+        runBlocking {
+                sportsOracleRepository.refreshDatabase()
         }
     }
-
-    private fun getStadiums() {
-        viewModelScope.launch {
-            Log.e("Stadiums", FootballApi.retrofitService.getStadiums().items.toString())
-        }
-    }
-
-    private fun getSquads() {
-        viewModelScope.launch {
-            Log.e("Squads()", FootballApi.retrofitService.getSquads().items.toString())
-        }
-    }
-
-    private fun getMatches() {
-        viewModelScope.launch {
-            Log.e("Matches()", FootballApi.retrofitService.getMatches().items.toString())
-        }
-    }
-
-    private fun getGroups() {
-        viewModelScope.launch {
-            Log.e("Groups()", FootballApi.retrofitService.getGroups().items.toString())
-        }
-    }
-
-    private fun getGoals() {
-        viewModelScope.launch {
-            Log.e("Goals()", FootballApi.retrofitService.getGoals().items.toString())
-        }
-    }
-
-    private fun getCards() {
-        viewModelScope.launch {
-            Log.e("Cards()", FootballApi.retrofitService.getCards().items.toString())
-        }
-    }
-
-//    private fun getGroups() {
-//        viewModelScope.launch {
-//            _groups.value = FootballApi.retrofitService.getGroups().items.sortedBy {
-//                it.name
-//            }
-//            val file = groups.value?.get(2)?.teams?.get(1)?.logo?.let { File(it) }
-//
-//            Log.e("Foi",groups.value.toString())
-//        }
-//    }
 }

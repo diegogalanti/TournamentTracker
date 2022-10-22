@@ -1,14 +1,18 @@
 package com.gallardo.sportsoracle.view
 
 import android.graphics.drawable.GradientDrawable
+import android.util.Log
 import android.view.LayoutInflater
 import android.widget.GridLayout
 import android.widget.ImageView
 import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
+import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
+import coil.Coil
 import coil.ImageLoader
 import coil.decode.SvgDecoder
+import coil.disk.DiskCache
 import coil.load
 import coil.request.ImageRequest
 import coil.size.Scale
@@ -46,26 +50,14 @@ fun bindGroupTeams(
 @BindingAdapter("bind_image")
 fun bindTeamImage(
     imageView: ImageView,
-    url: String?
+    url: String
 ) {
-    val url2 = "https://raw.githubusercontent.com/hampusborgos/country-flags/main/svg/$url"
-    url2.let {
-        val imgUri = it.toUri().buildUpon().scheme("https").build()
-        val imageLoader = ImageLoader.Builder(imageView.context).components {
-            add(SvgDecoder.Factory())
-        }.placeholder(R.drawable.loading_animation).error(R.drawable.ic_broken_image).build()
-        val request = ImageRequest.Builder(imageView.context)
-            .data(url2)
-            .target(imageView)
-            .scale(Scale.FILL)
-            .build()
+    val url = "https://raw.githubusercontent.com/hampusborgos/country-flags/main/svg/$url"
+    val request = ImageRequest.Builder(imageView.context)
+        .data(url)
+        .target(imageView)
+        .scale(Scale.FILL)
+        .build()
 
-        imageLoader.enqueue(request)
-    }
-//    val resId: Int = imageView.resources.getIdentifier(
-//        url?.substringBeforeLast('.'),
-//        "drawable",
-//        imageView.context.packageName
-//    )
-//    imageView.setImageResource(if (resId == 0) R.drawable.brazil else resId)
+    Coil.imageLoader(imageView.context).enqueue(request)
 }

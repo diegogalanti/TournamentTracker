@@ -7,14 +7,18 @@
         <variable
             name="group"
             type="com.gallardo.sportsoracle.model.Group" />
+        <variable
+            name="groupsViewModel"
+            type="com.gallardo.sportsoracle.viewmodels.GroupsViewModel" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="6dp"
         app:cardCornerRadius="16dp"
-        app:cardElevation="8dp"
+        app:cardElevation="0dp"
+        app:strokeWidth="1dp"
+        app:strokeColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -30,7 +34,7 @@
                 android:layout_height="90dp"
                 android:columnCount="4"
                 android:orientation="horizontal"
-
+                app:group_teams="@{groupsViewModel.getGroupTeams(group.key)}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -38,6 +42,8 @@
                 android:id="@+id/group_teams_divider"
                 android:layout_width="0dp"
                 android:layout_height="1dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/group_teams" />
@@ -47,8 +53,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="@{group.name}"
-                android:layout_marginStart="40dp"
+                android:text="@{@string/group_name(group.name)}"
+                android:layout_marginStart="24dp"
                 android:textAppearance="?attr/textAppearanceHeadline6"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/group_teams_divider"
@@ -62,7 +68,7 @@
                 app:iconSize="32dp"
                 app:layout_constraintTop_toTopOf="@id/group_name"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginEnd="30dp"
+                android:layout_marginEnd="16dp"
                 app:icon="@drawable/ic_expand_more_24"
                 app:iconGravity="textStart"
                 android:onClick="expandCard"
@@ -79,6 +85,9 @@
                 android:id="@+id/group_teams_divider2"
                 android:layout_width="0dp"
                 android:layout_height="1dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/group_name" />
@@ -89,7 +98,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
-                android:text="@{group.name}"
+                android:text="teste"
                 android:textAppearance="?attr/textAppearanceHeadline6"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

@@ -1,12 +1,10 @@
 package com.gallardo.sportsoracle.model
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.ForeignKey
-import androidx.room.PrimaryKey
+import androidx.room.*
 import com.squareup.moshi.Json
 
 @Entity(
+    //indices = [Index("group_key")],
     foreignKeys = [
         ForeignKey(
             entity = Group::class,

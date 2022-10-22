@@ -1,4 +1,4 @@
-package com.gallardo.sportsoracle.network
+package com.gallardo.sportsoracle.data.network
 
 import com.gallardo.sportsoracle.model.*
 import com.squareup.moshi.JsonClass
