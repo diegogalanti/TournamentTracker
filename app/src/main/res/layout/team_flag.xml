@@ -5,8 +5,8 @@
 
     <data>
         <variable
-            name="team"
-            type="com.gallardo.sportsoracle.model.Team" />
+            name="flag"
+            type="String" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -20,7 +20,7 @@
             android:scaleType="fitXY"
             android:layout_height="0dp"
             android:layout_width="0dp"
-            app:bind_image="@{team.flag}"
+            app:bind_image="@{flag}"
             app:layout_constraintHeight_percent="0.75"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"

@@ -16,6 +16,12 @@ interface SportsOracleDao {
     fun insertGroups(groups: List<Group>)
 
     @Query(
+        "SELECT flag FROM Team " +
+                "WHERE group_key = :key"
+    )
+    fun getGroupTeamsFlags(key: String): List<String>
+
+    @Query(
         "SELECT * FROM Team " +
                 "WHERE group_key = :key"
     )

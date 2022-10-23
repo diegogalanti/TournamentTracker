@@ -1,22 +1,23 @@
 package com.gallardo.sportsoracle.data
 
-import android.content.Context
 import android.util.Log
-import androidx.lifecycle.LiveData
 import com.gallardo.sportsoracle.data.database.SportsOracleDatabase
 import com.gallardo.sportsoracle.data.network.FootballApi
 import com.gallardo.sportsoracle.model.Group
 import com.gallardo.sportsoracle.model.Team
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import java.io.File
 
 class SportsOracleRepository(private val database: SportsOracleDatabase) {
     fun getGroups(): List<Group> {
         return database.sportsOracleDao.getGroups()
     }
 
-    fun getGroupTeams(groupKey: String): List<Team> {
+    fun getGroupTeamsFlags(groupKey: String): List<String> {
+        return database.sportsOracleDao.getGroupTeamsFlags(groupKey)
+    }
+
+    fun getGroupTeamsDetails(groupKey: String): List<Team> {
         return database.sportsOracleDao.getGroupTeams(groupKey)
     }
 

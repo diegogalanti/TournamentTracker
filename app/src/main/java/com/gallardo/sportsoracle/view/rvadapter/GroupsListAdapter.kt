@@ -2,12 +2,9 @@ package com.gallardo.sportsoracle.view.rvadapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.gallardo.sportsoracle.R
-import com.gallardo.sportsoracle.databinding.GroupItemBinding
 import com.gallardo.sportsoracle.databinding.GroupTableBinding
 import com.gallardo.sportsoracle.model.Group
 import com.gallardo.sportsoracle.viewmodels.GroupsViewModel
