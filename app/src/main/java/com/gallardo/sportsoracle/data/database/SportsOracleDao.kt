@@ -30,6 +30,11 @@ interface SportsOracleDao {
     @Query("SELECT flag FROM Team")
     fun getTeamsFlags(): List<String>
 
+    @Query("SELECT * FROM `Match` " +
+            "WHERE group_key = :key"
+    )
+    fun getGroupMatches(key: String): List<Match>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertCards(cards: List<Card>)
 

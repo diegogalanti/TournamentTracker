@@ -17,8 +17,9 @@
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="16dp"
-        app:cardElevation="0dp"
+        app:cardBackgroundColor="@color/md_theme_light_surfaceVariant"
+        app:cardElevation="8dp"
+        app:strokeWidth="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -51,8 +52,8 @@
                 android:id="@+id/group_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
                 android:text="@{@string/group_name(group.name)}"
                 android:textAppearance="?attr/textAppearanceHeadline6"
                 app:layout_constraintStart_toStartOf="parent"
@@ -61,32 +62,54 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/expand_button"
-                style="@style/Widget.Material3.Button.IconButton"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
                 android:layout_marginEnd="16dp"
+                android:text="Details"
                 android:onClick="expandCard"
+                android:paddingRight="8dp"
+                android:paddingLeft="16dp"
+                android:layout_marginTop="13dp"
                 app:icon="@drawable/ic_expand_more_24"
-                app:iconGravity="textStart"
+                app:iconGravity="textEnd"
                 app:iconSize="32dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/group_name" />
+                app:layout_constraintTop_toBottomOf="@id/group_teams_divider" />
+
+            <com.google.android.material.divider.MaterialDivider
+                android:id="@+id/space"
+                android:layout_width="0dp"
+                android:layout_height="20dp"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/group_name" />
 
             <androidx.constraintlayout.widget.Group
                 android:id="@+id/expand_group"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:visibility="gone"
-                app:constraint_referenced_ids="table_cl" />
+                app:constraint_referenced_ids="table_cl,details_divider" />
+
+            <com.google.android.material.divider.MaterialDivider
+                android:id="@+id/details_divider"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/group_name" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/table_cl"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
                 android:padding="16dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/group_name"
+                app:layout_constraintTop_toBottomOf="@id/details_divider"
                 app:bind_details="@{groupsViewModel.getGroupTeamsDetails(group.key)}">
 
                 <TableLayout
