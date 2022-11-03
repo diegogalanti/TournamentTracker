@@ -49,7 +49,6 @@ fun bindGroupTeamsDetails(
     val url = "https://raw.githubusercontent.com/hampusborgos/country-flags/main/svg/"
     val tableFixed = detailsCl.findViewById<TableLayout>(R.id.table_fixed)
     val tableScroll = detailsCl.findViewById<TableLayout>(R.id.table_scroll)
-    includedHeaders(tableFixed,tableScroll)
     if (tableFixed.childCount == 1)
         data?.forEach() {
             val fixedRow = TableRow(tableFixed.context)
@@ -81,88 +80,28 @@ fun bindGroupTeamsDetails(
             linearL.addView(flag)
             linearL.addView(team)
 
-            val pts = TextView(fixedRow.context)
-            pts.text = "0"
-            val pj = TextView(fixedRow.context)
-            pj.text = "0"
-            val vit = TextView(fixedRow.context)
-            vit.text = "0"
-            val emp = TextView(fixedRow.context)
-            emp.text = "0"
-            val der = TextView(fixedRow.context)
-            der.text = "0"
-            val gm = TextView(fixedRow.context)
-            gm.text = "0"
-            val gs = TextView(fixedRow.context)
-            gs.text = "0"
-            val sg = TextView(fixedRow.context)
-            sg.text = "0"
+            val points = TextView(fixedRow.context)
+            points.text = "0"
+            val played = TextView(fixedRow.context)
+            played.text = "0"
+            val won = TextView(fixedRow.context)
+            won.text = "0"
+            val drawn = TextView(fixedRow.context)
+            drawn.text = "0"
+            val lost = TextView(fixedRow.context)
+            lost.text = "0"
+            val goals = TextView(fixedRow.context)
+            goals.text = "5 - 3 = 2"
             fixedRow.addView(linearL)
-            scrollRow.addView(pts)
-            scrollRow.addView(pj)
-            scrollRow.addView(vit)
-            scrollRow.addView(emp)
-            scrollRow.addView(der)
-            scrollRow.addView(gm)
-            scrollRow.addView(gs)
-            scrollRow.addView(sg)
+            scrollRow.addView(points)
+            scrollRow.addView(played)
+            scrollRow.addView(won)
+            scrollRow.addView(drawn)
+            scrollRow.addView(lost)
+            scrollRow.addView(goals)
             tableFixed.addView(fixedRow)
             tableScroll.addView(scrollRow)
         }
-}
-
-fun includedHeaders(tableFixed: TableLayout, tableScroll: TableLayout) {
-    if (tableFixed.childCount == 0){
-        val fixedRow = TableRow(tableFixed.context)
-        fixedRow.layoutParams = TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,TableRow.LayoutParams.WRAP_CONTENT)
-        val team = TextView(tableFixed.context)
-        team.text = "Team"
-        fixedRow.addView(team)
-        tableFixed.addView(fixedRow)
-    }
-    if (tableScroll.childCount == 0){
-        val scrollRow = TableRow(tableScroll.context)
-        scrollRow.layoutParams = TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,TableRow.LayoutParams.WRAP_CONTENT)
-        val pt = TextView(tableScroll.context)
-        pt.text = "PT"
-        pt.layoutParams = TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,TableRow.LayoutParams.WRAP_CONTENT)
-        (pt.layoutParams as TableRow.LayoutParams).setMargins(0,0,convertPixelsToDp(16, tableFixed.context),0)
-        val gp = TextView(tableScroll.context)
-        gp.text = "GP"
-        gp.layoutParams = TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,TableRow.LayoutParams.WRAP_CONTENT)
-        (gp.layoutParams as TableRow.LayoutParams).setMargins(0,0,convertPixelsToDp(16, tableFixed.context),0)
-        val wi = TextView(tableScroll.context)
-        wi.text = "WI"
-        wi.layoutParams = TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,TableRow.LayoutParams.WRAP_CONTENT)
-        (wi.layoutParams as TableRow.LayoutParams).setMargins(0,0,convertPixelsToDp(16, tableFixed.context),0)
-        val dw = TextView(tableScroll.context)
-        dw.text = "DW"
-        dw.layoutParams = TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,TableRow.LayoutParams.WRAP_CONTENT)
-        (dw.layoutParams as TableRow.LayoutParams).setMargins(0,0,convertPixelsToDp(16, tableFixed.context),0)
-        val lo = TextView(tableScroll.context)
-        lo.text = "LO"
-        lo.layoutParams = TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,TableRow.LayoutParams.WRAP_CONTENT)
-        (lo.layoutParams as TableRow.LayoutParams).setMargins(0,0,convertPixelsToDp(16, tableFixed.context),0)
-        val gf = TextView(tableScroll.context)
-        gf.text = "GF"
-        gf.layoutParams = TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,TableRow.LayoutParams.WRAP_CONTENT)
-        (gf.layoutParams as TableRow.LayoutParams).setMargins(0,0,convertPixelsToDp(16, tableFixed.context),0)
-        val ga = TextView(tableScroll.context)
-        ga.text = "GA"
-        ga.layoutParams = TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,TableRow.LayoutParams.WRAP_CONTENT)
-        (ga.layoutParams as TableRow.LayoutParams).setMargins(0,0,convertPixelsToDp(16, tableFixed.context),0)
-        val gd = TextView(tableScroll.context)
-        gd.text = "GD"
-        scrollRow.addView(pt)
-        scrollRow.addView(gp)
-        scrollRow.addView(wi)
-        scrollRow.addView(dw)
-        scrollRow.addView(lo)
-        scrollRow.addView(gf)
-        scrollRow.addView(ga)
-        scrollRow.addView(gd)
-        tableScroll.addView(scrollRow)
-    }
 }
 
 fun convertPixelsToDp(px: Int, context: Context): Int {
