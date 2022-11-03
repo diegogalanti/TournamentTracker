@@ -1,17 +1,13 @@
 package com.gallardo.sportsoracle.viewmodels
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.*
 import com.gallardo.sportsoracle.data.SportsOracleRepository
 import com.gallardo.sportsoracle.data.database.SportsOracleDatabase.Companion.getDatabase
 import com.gallardo.sportsoracle.model.Group
-import com.gallardo.sportsoracle.data.network.FootballApi
+import com.gallardo.sportsoracle.model.Match
 import com.gallardo.sportsoracle.model.Team
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import okhttp3.internal.wait
-import java.io.IOException
 
 
 class GroupsViewModel(application: Application) : AndroidViewModel(application) {
@@ -27,10 +23,14 @@ class GroupsViewModel(application: Application) : AndroidViewModel(application) 
     fun getGroupTeamsFlags(groupKey: String) : List<String> {
         return sportsOracleRepository.getGroupTeamsFlags(groupKey)
     }
-    fun getGroupTeamsDetails(groupKey: String) : List<Team> {
-        return sportsOracleRepository.getGroupTeamsDetails(groupKey)
+
+    fun getGroupTeams(groupKey: String) : List<Team> {
+        return sportsOracleRepository.getGroupTeams(groupKey)
     }
 
+    fun getGroupMatches(groupKey: String) : List<Match> {
+        return sportsOracleRepository.getGroupMatches(groupKey)
+    }
 
     private fun refreshDataFromRepository() {
         runBlocking {

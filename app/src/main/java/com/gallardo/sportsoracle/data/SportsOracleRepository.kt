@@ -4,6 +4,7 @@ import android.util.Log
 import com.gallardo.sportsoracle.data.database.SportsOracleDatabase
 import com.gallardo.sportsoracle.data.network.FootballApi
 import com.gallardo.sportsoracle.model.Group
+import com.gallardo.sportsoracle.model.Match
 import com.gallardo.sportsoracle.model.Team
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -17,8 +18,12 @@ class SportsOracleRepository(private val database: SportsOracleDatabase) {
         return database.sportsOracleDao.getGroupTeamsFlags(groupKey)
     }
 
-    fun getGroupTeamsDetails(groupKey: String): List<Team> {
+    fun getGroupTeams(groupKey: String): List<Team> {
         return database.sportsOracleDao.getGroupTeams(groupKey)
+    }
+
+    fun getGroupMatches(groupKey: String): List<Match> {
+        return database.sportsOracleDao.getGroupMatches(groupKey)
     }
 
     suspend fun refreshDatabase() {
