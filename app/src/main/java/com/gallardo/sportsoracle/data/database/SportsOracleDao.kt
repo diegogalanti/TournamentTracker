@@ -35,6 +35,12 @@ interface SportsOracleDao {
     )
     fun getGroupMatches(key: String): List<Match>
 
+    @Query("SELECT * FROM `match` " +
+            "JOIN goal ON `match`.`key` = goal.match_key " +
+            "WHERE group_key = :groupKey"
+    )
+    fun getGroupMatchesAndGoals(groupKey: String): Map<Match, List<Goal>>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertCards(cards: List<Card>)
 

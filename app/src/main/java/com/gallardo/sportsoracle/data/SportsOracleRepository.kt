@@ -3,6 +3,7 @@ package com.gallardo.sportsoracle.data
 import android.util.Log
 import com.gallardo.sportsoracle.data.database.SportsOracleDatabase
 import com.gallardo.sportsoracle.data.network.FootballApi
+import com.gallardo.sportsoracle.model.Goal
 import com.gallardo.sportsoracle.model.Group
 import com.gallardo.sportsoracle.model.Match
 import com.gallardo.sportsoracle.model.Team
@@ -24,6 +25,10 @@ class SportsOracleRepository(private val database: SportsOracleDatabase) {
 
     fun getGroupMatches(groupKey: String): List<Match> {
         return database.sportsOracleDao.getGroupMatches(groupKey)
+    }
+
+    fun getGroupMatchesAndGoals(groupKey: String): Map<Match, List<Goal>> {
+        return database.sportsOracleDao.getGroupMatchesAndGoals(groupKey)
     }
 
     suspend fun refreshDatabase() {
