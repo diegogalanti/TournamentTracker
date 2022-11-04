@@ -1,5 +1,6 @@
 package com.gallardo.sportsoracle.data.network
 
+import com.gallardo.sportsoracle.view.toString
 import com.squareup.moshi.FromJson
 import com.squareup.moshi.JsonQualifier
 import com.squareup.moshi.ToJson
@@ -27,7 +28,7 @@ class JsonAdapters {
 
     @ToJson
     fun dateToJson(@StringToDate date: Date): String {
-        return date.toString()
+        return date.toString("yyyMMddHHmm")
     }
 
     @FromJson
