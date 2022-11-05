@@ -31,7 +31,8 @@ import com.squareup.moshi.Json
 )
 data class Goal(
     @PrimaryKey
-    val key: String,
+    @Json(name = "key")
+    val goalKey: String,
 
     @Json(name = "match_id")
     @ColumnInfo(name = "match_key")
