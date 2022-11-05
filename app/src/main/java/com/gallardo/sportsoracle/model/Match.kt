@@ -40,7 +40,7 @@ data class Match(
 
     @ColumnInfo(name = "team_two_key")
     @Json(name = "team_2_key")
-    val team2Key: String,
+    val teamTwoKey: String,
 
     @ColumnInfo(name = "team_one_key")
     @Json(name = "team_one_key")

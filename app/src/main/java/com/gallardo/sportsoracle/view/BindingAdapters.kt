@@ -14,11 +14,11 @@ import coil.request.ImageRequest
 import coil.size.Scale
 import com.gallardo.sportsoracle.R
 import com.gallardo.sportsoracle.databinding.TeamFlagBinding
-import com.gallardo.sportsoracle.model.Group
-import com.gallardo.sportsoracle.model.Match
-import com.gallardo.sportsoracle.model.Team
+import com.gallardo.sportsoracle.model.*
 import com.gallardo.sportsoracle.view.rvadapter.GroupsListAdapter
 import com.google.android.material.textview.MaterialTextView
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 @BindingAdapter("groups_list")
@@ -44,19 +44,18 @@ fun bindGroupTeamsFlags(
         }
 }
 
-@BindingAdapter(value = ["teams", "matches"], requireAll = true)
+@BindingAdapter("teamsWithResults")
 fun bindGroupTeamsDetails(
     detailsCl: ConstraintLayout,
-    teams: List<Team>?, matches: List<Match>?
+    teamWithGroupResult: List<TeamWithGroupResult>
 ) {
     val tableFixed = detailsCl.findViewById<TableLayout>(R.id.table_fixed)
     if (tableFixed.childCount == 1) {
-        Log.e("ABC", matches.toString())
         val url = "https://raw.githubusercontent.com/hampusborgos/country-flags/main/svg/"
         val tableScroll = detailsCl.findViewById<TableLayout>(R.id.table_scroll)
-        teams?.forEach() {
+
+        teamWithGroupResult.forEach() { currentTeam ->
             val fixedRow = TableRow(tableFixed.context)
-            val scrollRow = TableRow(tableFixed.context)
             val linearL = LinearLayout(fixedRow.context)
             linearL.gravity = Gravity.CENTER_VERTICAL
             val pos = MaterialTextView(linearL.context)
@@ -86,9 +85,9 @@ fun bindGroupTeamsDetails(
                 convertPixelsToDp(8, linearL.context),
                 0
             )
-            bindImage(flag, url + it.flag)
+            bindImage(flag, url + currentTeam.flag)
             val team = MaterialTextView(linearL.context)
-            team.text = it.name
+            team.text = currentTeam.name
             team.layoutParams = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
@@ -103,23 +102,24 @@ fun bindGroupTeamsDetails(
             linearL.addView(flag)
             linearL.addView(team)
 
+            val scrollRow = TableRow(tableFixed.context)
             val points = MaterialTextView(fixedRow.context)
-            points.text = "0"
+            points.text = currentTeam.points.toString()
             points.gravity = Gravity.CENTER;
             val played = MaterialTextView(fixedRow.context)
-            played.text = "0"
+            played.text = currentTeam.played.toString()
             played.gravity = Gravity.CENTER;
             val won = MaterialTextView(fixedRow.context)
-            won.text = "0"
+            won.text = currentTeam.won.toString()
             won.gravity = Gravity.CENTER;
             val drawn = MaterialTextView(fixedRow.context)
-            drawn.text = "0"
+            drawn.text = currentTeam.drawn.toString()
             drawn.gravity = Gravity.CENTER;
             val lost = MaterialTextView(fixedRow.context)
-            lost.text = "0"
+            lost.text = currentTeam.lost.toString()
             lost.gravity = Gravity.CENTER;
             val goals = MaterialTextView(fixedRow.context)
-            goals.text = "5 - 3 = 2"
+            goals.text = currentTeam.goalDiff.toString()
             goals.gravity = Gravity.CENTER;
             fixedRow.addView(linearL)
             scrollRow.addView(points)
@@ -132,6 +132,11 @@ fun bindGroupTeamsDetails(
             tableScroll.addView(scrollRow)
         }
     }
+}
+
+fun Date.toString(format: String, locale: Locale = Locale.getDefault()): String {
+    val formatter = SimpleDateFormat(format, locale)
+    return formatter.format(this)
 }
 
 fun convertPixelsToDp(px: Int, context: Context): Int {
