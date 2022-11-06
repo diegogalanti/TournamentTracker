@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="timeVar"
+            type="String" />
+        <variable
+            name="teamOneNameVar"
+            type="String" />
+        <variable
+            name="teamTwoNameVar"
+            type="String" />
+        <variable
+            name="teamOneFlagVar"
+            type="String" />
+        <variable
+            name="teamTwoFlagVar"
+            type="String" />
+        <variable
+            name="phase"
+            type="String" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp">
+        <ImageView
+            android:id="@+id/teamOneFlag"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="24dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:bind_image="@{teamOneFlagVar}"/>
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/teamOneName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{teamOneNameVar}"
+            app:layout_constraintTop_toBottomOf="@id/teamOneFlag"
+            app:layout_constraintStart_toStartOf="@id/teamOneFlag"
+            app:layout_constraintEnd_toEndOf="@id/teamOneFlag"/>
+        <ImageView
+            android:id="@+id/versus"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:background="@drawable/ic_versus"/>
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{timeVar}"
+            app:layout_constraintTop_toBottomOf="@id/versus"
+            app:layout_constraintStart_toStartOf="@id/versus"
+            app:layout_constraintEnd_toEndOf="@id/versus"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/teamTwoName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{teamTwoNameVar}"
+            app:layout_constraintTop_toBottomOf="@id/teamTwoFlag"
+            app:layout_constraintStart_toStartOf="@id/teamTwoFlag"
+            app:layout_constraintEnd_toEndOf="@id/teamTwoFlag"/>
+
+        <ImageView
+            android:id="@+id/teamTwoFlag"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginRight="24dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:bind_image="@{teamTwoFlagVar}"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

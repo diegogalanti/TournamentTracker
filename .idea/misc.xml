@@ -13,8 +13,10 @@
         <entry key="..\:/TournamentTracker/app/src/main/res/drawable-v24/ic_broken_image.xml" value="0.1" />
         <entry key="..\:/TournamentTracker/app/src/main/res/drawable-v24/teamback.xml" value="0.147" />
         <entry key="..\:/TournamentTracker/app/src/main/res/drawable/cameroon.xml" value="0.1445" />
+        <entry key="..\:/TournamentTracker/app/src/main/res/drawable/ic_baseline_expand_more_24.xml" value="0.1" />
         <entry key="..\:/TournamentTracker/app/src/main/res/drawable/ic_live.xml" value="0.1" />
         <entry key="..\:/TournamentTracker/app/src/main/res/drawable/ic_matches.xml" value="0.104" />
+        <entry key="..\:/TournamentTracker/app/src/main/res/drawable/ic_versus.xml" value="0.1" />
         <entry key="..\:/TournamentTracker/app/src/main/res/drawable/loading_img.xml" value="0.1" />
         <entry key="..\:/TournamentTracker/app/src/main/res/drawable/qatar.xml" value="0.1445" />
         <entry key="..\:/TournamentTracker/app/src/main/res/drawable/rounded_shape_16_16.xml" value="0.1" />
@@ -28,6 +30,7 @@
         <entry key="..\:/TournamentTracker/app/src/main/res/layout/fragment_matches.xml" value="0.15534420289855072" />
         <entry key="..\:/TournamentTracker/app/src/main/res/layout/group_item.xml" value="0.18697916666666667" />
         <entry key="..\:/TournamentTracker/app/src/main/res/layout/group_table.xml" value="0.1" />
+        <entry key="..\:/TournamentTracker/app/src/main/res/layout/match_table.xml" value="0.10552536231884058" />
         <entry key="..\:/TournamentTracker/app/src/main/res/layout/team_details.xml" value="0.15989583333333332" />
         <entry key="..\:/TournamentTracker/app/src/main/res/layout/team_flag.xml" value="0.18697916666666667" />
         <entry key="..\:/TournamentTracker/app/src/main/res/menu/bottom_menu.xml" value="0.3645833333333333" />

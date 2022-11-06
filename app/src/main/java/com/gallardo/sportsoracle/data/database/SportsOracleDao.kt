@@ -30,10 +30,11 @@ interface SportsOracleDao {
     @Query("SELECT flag FROM Team")
     fun getTeamsFlags(): List<String>
 
-    @Query("SELECT * FROM `Match` " +
-            "WHERE group_key = :key"
-    )
-    fun getGroupMatches(key: String): List<Match>
+    @Query("SELECT * FROM `Match`")
+    fun getMatches(): List<Match>
+
+    @Query("SELECT * FROM Team")
+    fun getTeams(): List<Team>
 
     @Query("SELECT * FROM `match` " +
             "LEFT JOIN goal ON `match`.`key` = goal.match_key " +
@@ -58,8 +59,4 @@ interface SportsOracleDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertStadiums(stadiums: List<Stadium>)
-
-//    @Query("SELECT * FROM 'match'" +
-//    "WHERE team_one_key = :teamKey")
-//    fun getTeamFinishedMatches(teamKey: String): List<Card>
 }

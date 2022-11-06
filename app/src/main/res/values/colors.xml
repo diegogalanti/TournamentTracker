@@ -121,4 +121,6 @@
     <color name="md_theme_dark_outlineVariant">#534341</color>
 
     <color name="md_theme_dark_scrim">#000000</color>
+
+    <color name="mid_grey">#6E6E6E</color>
 </resources>

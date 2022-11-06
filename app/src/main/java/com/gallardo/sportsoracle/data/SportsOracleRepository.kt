@@ -23,12 +23,16 @@ class SportsOracleRepository(private val database: SportsOracleDatabase) {
         return database.sportsOracleDao.getGroupTeams(groupKey)
     }
 
-    fun getGroupMatches(groupKey: String): List<Match> {
-        return database.sportsOracleDao.getGroupMatches(groupKey)
-    }
-
     fun getGroupMatchesAndGoals(groupKey: String): Map<Match, List<Goal>> {
         return database.sportsOracleDao.getGroupMatchesAndGoals(groupKey)
+    }
+
+    fun getMatches(): List<Match> {
+        return database.sportsOracleDao.getMatches()
+    }
+
+    fun getTeams(): List<Team> {
+        return database.sportsOracleDao.getTeams()
     }
 
     suspend fun refreshDatabase() {
