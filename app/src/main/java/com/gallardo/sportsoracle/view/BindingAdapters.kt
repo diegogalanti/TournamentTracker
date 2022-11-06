@@ -2,12 +2,9 @@ package com.gallardo.sportsoracle.view
 
 import android.content.Context
 import android.util.DisplayMetrics
-import android.util.Log
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.view.forEachIndexed
 import androidx.core.view.get
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -15,11 +12,15 @@ import coil.Coil
 import coil.request.ImageRequest
 import coil.size.Scale
 import com.gallardo.sportsoracle.R
-import com.gallardo.sportsoracle.databinding.FixedRowBinding
-import com.gallardo.sportsoracle.databinding.ScrollRowBinding
-import com.gallardo.sportsoracle.databinding.TeamFlagBinding
-import com.gallardo.sportsoracle.model.*
+import com.gallardo.sportsoracle.databinding.GroupFixedRowBinding
+import com.gallardo.sportsoracle.databinding.GroupScrollRowBinding
+import com.gallardo.sportsoracle.databinding.GroupTeamFlagBinding
+import com.gallardo.sportsoracle.model.Group
+import com.gallardo.sportsoracle.model.Match
+import com.gallardo.sportsoracle.model.MatchWithTeamsDetails
+import com.gallardo.sportsoracle.model.TeamWithGroupResult
 import com.gallardo.sportsoracle.view.rvadapter.GroupsListAdapter
+import com.gallardo.sportsoracle.view.rvadapter.MatchesListAdapter
 import com.google.android.material.textview.MaterialTextView
 import java.text.SimpleDateFormat
 import java.util.*
@@ -31,6 +32,15 @@ fun bindGroupsListAdapter(
     data: List<Group>?
 ) {
     val adapter = recyclerView.adapter as GroupsListAdapter
+    adapter.submitList(data)
+}
+
+@BindingAdapter("matches_list")
+fun bindMatchesListAdapter(
+    recyclerView: RecyclerView,
+    data: List<MatchWithTeamsDetails>?
+) {
+    val adapter = recyclerView.adapter as MatchesListAdapter
     adapter.submitList(data)
 }
 
@@ -46,7 +56,7 @@ fun bindGroupTeamsFlags(
     } else {
         data?.forEach() {
             val teamFlagView =
-                TeamFlagBinding.inflate(LayoutInflater.from(gridLayout.context), gridLayout, false)
+                GroupTeamFlagBinding.inflate(LayoutInflater.from(gridLayout.context), gridLayout, false)
             teamFlagView.flag = it
             gridLayout.addView(teamFlagView.root)
         }
@@ -64,12 +74,12 @@ fun bindGroupTeamsDetails(
     if (tableFixed.childCount == 1) {
         teamWithGroupResult.forEachIndexed { index, currentTeam ->
             val fixedRow =
-                FixedRowBinding.inflate(LayoutInflater.from(tableFixed.context), tableFixed, false)
+                GroupFixedRowBinding.inflate(LayoutInflater.from(tableFixed.context), tableFixed, false)
             fixedRow.position = (index + 1).toString()
             fixedRow.flag = currentTeam.flag
             fixedRow.name = currentTeam.name
             tableFixed.addView(fixedRow.root)
-            val scrollRow = ScrollRowBinding.inflate((LayoutInflater.from(tableScroll.context)),tableScroll,false)
+            val scrollRow = GroupScrollRowBinding.inflate((LayoutInflater.from(tableScroll.context)),tableScroll,false)
             scrollRow.points = currentTeam.points.toString()
             scrollRow.played = currentTeam.played.toString()
             scrollRow.won = currentTeam.won.toString()
