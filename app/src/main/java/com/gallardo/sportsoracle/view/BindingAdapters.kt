@@ -7,12 +7,16 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.forEachIndexed
+import androidx.core.view.get
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.Coil
 import coil.request.ImageRequest
 import coil.size.Scale
 import com.gallardo.sportsoracle.R
+import com.gallardo.sportsoracle.databinding.FixedRowBinding
+import com.gallardo.sportsoracle.databinding.ScrollRowBinding
 import com.gallardo.sportsoracle.databinding.TeamFlagBinding
 import com.gallardo.sportsoracle.model.*
 import com.gallardo.sportsoracle.view.rvadapter.GroupsListAdapter
@@ -35,13 +39,18 @@ fun bindGroupTeamsFlags(
     gridLayout: GridLayout,
     data: List<String>?
 ) {
-    if (gridLayout.childCount == 0)
+    if (gridLayout.childCount != 0) {
+        data?.forEachIndexed { index, s ->
+            bindTeamImage((gridLayout[index] as ConstraintLayout)[0] as ImageView, s)
+        }
+    } else {
         data?.forEach() {
             val teamFlagView =
                 TeamFlagBinding.inflate(LayoutInflater.from(gridLayout.context), gridLayout, false)
             teamFlagView.flag = it
             gridLayout.addView(teamFlagView.root)
         }
+    }
 }
 
 @BindingAdapter("teamsWithResults")
@@ -50,86 +59,42 @@ fun bindGroupTeamsDetails(
     teamWithGroupResult: List<TeamWithGroupResult>
 ) {
     val tableFixed = detailsCl.findViewById<TableLayout>(R.id.table_fixed)
+    val tableScroll = detailsCl.findViewById<TableLayout>(R.id.table_scroll)
+
     if (tableFixed.childCount == 1) {
-        val url = "https://raw.githubusercontent.com/hampusborgos/country-flags/main/svg/"
-        val tableScroll = detailsCl.findViewById<TableLayout>(R.id.table_scroll)
+        teamWithGroupResult.forEachIndexed { index, currentTeam ->
+            val fixedRow =
+                FixedRowBinding.inflate(LayoutInflater.from(tableFixed.context), tableFixed, false)
+            fixedRow.position = (index + 1).toString()
+            fixedRow.flag = currentTeam.flag
+            fixedRow.name = currentTeam.name
+            tableFixed.addView(fixedRow.root)
+            val scrollRow = ScrollRowBinding.inflate((LayoutInflater.from(tableScroll.context)),tableScroll,false)
+            scrollRow.points = currentTeam.points.toString()
+            scrollRow.played = currentTeam.played.toString()
+            scrollRow.won = currentTeam.won.toString()
+            scrollRow.drawn = currentTeam.drawn.toString()
+            scrollRow.lost = currentTeam.lost.toString()
+            scrollRow.goalDiff = currentTeam.goalDiff
+            tableScroll.addView(scrollRow.root)
+        }
+    } else {
+        teamWithGroupResult.forEachIndexed { index, currentTeam ->
+            (((tableFixed[index + 1] as TableRow)[0] as LinearLayout)[0] as MaterialTextView).text =
+                (index + 1).toString()
+            bindTeamImage(
+                (((tableFixed[index + 1] as TableRow)[0] as LinearLayout)[1] as ImageView),
+                currentTeam.flag
+            )
+            (((tableFixed[index + 1] as TableRow)[0] as LinearLayout)[2] as MaterialTextView).text =
+                currentTeam.name
+            ((tableScroll[index + 1] as TableRow)[0] as MaterialTextView).text = currentTeam.points.toString()
+            ((tableScroll[index + 1] as TableRow)[1] as MaterialTextView).text = currentTeam.played.toString()
+            ((tableScroll[index + 1] as TableRow)[2] as MaterialTextView).text = currentTeam.won.toString()
+            ((tableScroll[index + 1] as TableRow)[3] as MaterialTextView).text = currentTeam.drawn.toString()
+            ((tableScroll[index + 1] as TableRow)[4] as MaterialTextView).text = currentTeam.lost.toString()
+            ((tableScroll[index + 1] as TableRow)[5] as MaterialTextView).text = currentTeam.goalDiff
 
-        teamWithGroupResult.forEach() { currentTeam ->
-            val fixedRow = TableRow(tableFixed.context)
-            val linearL = LinearLayout(fixedRow.context)
-            linearL.gravity = Gravity.CENTER_VERTICAL
-            val pos = MaterialTextView(linearL.context)
-            pos.layoutParams = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-            )
-            (pos.layoutParams as LinearLayout.LayoutParams).setMargins(
-                0,
-                0,
-                convertPixelsToDp(8, tableFixed.context),
-                0
-            )
-            pos.text = tableFixed.childCount.toString()
-            val flag = ImageView(linearL.context)
-            flag.adjustViewBounds = true
-            flag.clipToOutline = true
-            flag.scaleType = ImageView.ScaleType.FIT_XY
-            flag.setBackgroundResource(R.drawable.rounded_shape_16_16)
-            flag.layoutParams = LinearLayout.LayoutParams(
-                convertPixelsToDp(20, linearL.context),
-                convertPixelsToDp(20, linearL.context)
-            )
-            (flag.layoutParams as LinearLayout.LayoutParams).setMargins(
-                0,
-                convertPixelsToDp(1, linearL.context),
-                convertPixelsToDp(8, linearL.context),
-                0
-            )
-            bindImage(flag, url + currentTeam.flag)
-            val team = MaterialTextView(linearL.context)
-            team.text = currentTeam.name
-            team.layoutParams = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-            )
-            (team.layoutParams as LinearLayout.LayoutParams).setMargins(
-                0,
-                0,
-                convertPixelsToDp(8, linearL.context),
-                0
-            )
-            linearL.addView(pos)
-            linearL.addView(flag)
-            linearL.addView(team)
-
-            val scrollRow = TableRow(tableFixed.context)
-            val points = MaterialTextView(fixedRow.context)
-            points.text = currentTeam.points.toString()
-            points.gravity = Gravity.CENTER;
-            val played = MaterialTextView(fixedRow.context)
-            played.text = currentTeam.played.toString()
-            played.gravity = Gravity.CENTER;
-            val won = MaterialTextView(fixedRow.context)
-            won.text = currentTeam.won.toString()
-            won.gravity = Gravity.CENTER;
-            val drawn = MaterialTextView(fixedRow.context)
-            drawn.text = currentTeam.drawn.toString()
-            drawn.gravity = Gravity.CENTER;
-            val lost = MaterialTextView(fixedRow.context)
-            lost.text = currentTeam.lost.toString()
-            lost.gravity = Gravity.CENTER;
-            val goals = MaterialTextView(fixedRow.context)
-            goals.text = currentTeam.goalDiff.toString()
-            goals.gravity = Gravity.CENTER;
-            fixedRow.addView(linearL)
-            scrollRow.addView(points)
-            scrollRow.addView(played)
-            scrollRow.addView(won)
-            scrollRow.addView(drawn)
-            scrollRow.addView(lost)
-            scrollRow.addView(goals)
-            tableFixed.addView(fixedRow)
-            tableScroll.addView(scrollRow)
         }
     }
 }

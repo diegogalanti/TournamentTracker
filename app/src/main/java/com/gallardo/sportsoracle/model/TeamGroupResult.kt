@@ -13,7 +13,6 @@ data class TeamWithGroupResult (
 ){
     var points = 0
         get() = won * 3 + drawn
-
     var played = 0
         get() = won + lost + drawn
     var goalDiff = "0"

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <data>
+        <variable
+            name="flag"
+            type="String" />
+        <variable
+            name="name"
+            type="String" />
+        <variable
+            name="position"
+            type="String" />
+    </data>
+
+    <TableRow>
+        <LinearLayout
+            android:gravity="center_vertical">
+            <com.google.android.material.textview.MaterialTextView
+                android:text="@{position}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="8dp"/>
+            <ImageView
+                android:adjustViewBounds="true"
+                android:clipToOutline="true"
+                android:scaleType="fitXY"
+                android:background="@drawable/rounded_shape_16_16"
+                android:layout_height="20dp"
+                android:layout_width="20dp"
+                app:bind_image="@{flag}"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="1dp"/>
+            <com.google.android.material.textview.MaterialTextView
+                android:text="@{name}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="8dp"/>
+        </LinearLayout>
+    </TableRow>
+</layout>
