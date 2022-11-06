@@ -14,10 +14,6 @@ class GroupsViewModel(application: Application) : AndroidViewModel(application) 
 
     private val sportsOracleRepository = SportsOracleRepository(getDatabase(application))
 
-    init {
-        refreshDataFromRepository()
-    }
-
     val groups: List<Group> = sportsOracleRepository.getGroups()
 
     fun getGroupTeamsFlags(groupKey: String): List<String> {

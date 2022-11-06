@@ -11,8 +11,11 @@ import coil.Coil
 import coil.ImageLoader
 import coil.decode.SvgDecoder
 import coil.disk.DiskCache
+import com.gallardo.sportsoracle.data.SportsOracleRepository
+import com.gallardo.sportsoracle.data.database.SportsOracleDatabase
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.button.MaterialButton
+import kotlinx.coroutines.runBlocking
 
 
 class MainActivity : AppCompatActivity() {
@@ -25,10 +28,13 @@ class MainActivity : AppCompatActivity() {
         val navController = navHostFragment.navController
         bottomNavigationView.setupWithNavController(navController)
         createImageLoader()
+        runBlocking {
+            SportsOracleRepository(SportsOracleDatabase.getDatabase(application)).refreshDatabase()
+        }
     }
 
     private fun createImageLoader() {
-        val imageLoader = this?.let {
+        val imageLoader = this.let {
             ImageLoader.Builder(it).components {
                 add(SvgDecoder.Factory())
             }.placeholder(R.drawable.loading_animation).error(R.drawable.ic_broken_image)
@@ -40,15 +46,13 @@ class MainActivity : AppCompatActivity() {
                 }
                 .build()
         }
-        if (imageLoader != null) {
-            Coil.setImageLoader(imageLoader)
-        }
+        Coil.setImageLoader(imageLoader)
     }
 
     fun expandCard(arrow: View) {
         val parent = arrow.parent as ViewGroup
         val hiddenGroup = parent.findViewById<View>(R.id.expand_group)
-        if (hiddenGroup.visibility === View.VISIBLE) {
+        if (hiddenGroup.visibility == View.VISIBLE) {
 //                TransitionManager().beginDelayedTransition(cardView, AutoTransition())
             hiddenGroup.visibility = View.GONE
             (arrow as MaterialButton).setIconResource(R.drawable.ic_expand_more_24)
