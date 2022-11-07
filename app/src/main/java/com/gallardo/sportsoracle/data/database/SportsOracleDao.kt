@@ -6,6 +6,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.gallardo.sportsoracle.model.*
+import java.util.*
 
 @Dao
 interface SportsOracleDao {
@@ -41,6 +42,9 @@ interface SportsOracleDao {
             "WHERE group_key = :groupKey"
     )
     fun getGroupMatchesAndGoals(groupKey: String): Map<Match, List<Goal>>
+
+    @Query("SELECT DISTINCT date FROM `match`")
+    fun getMatchesDates() : List<String>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertCards(cards: List<Card>)

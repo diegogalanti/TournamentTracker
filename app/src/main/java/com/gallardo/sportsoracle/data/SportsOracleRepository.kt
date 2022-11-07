@@ -9,6 +9,7 @@ import com.gallardo.sportsoracle.model.Match
 import com.gallardo.sportsoracle.model.Team
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import java.util.*
 
 class SportsOracleRepository(private val database: SportsOracleDatabase) {
     fun getGroups(): List<Group> {
@@ -33,6 +34,10 @@ class SportsOracleRepository(private val database: SportsOracleDatabase) {
 
     fun getTeams(): List<Team> {
         return database.sportsOracleDao.getTeams()
+    }
+
+    fun getMatchesDates(): List<String> {
+        return database.sportsOracleDao.getMatchesDates()
     }
 
     suspend fun refreshDatabase() {

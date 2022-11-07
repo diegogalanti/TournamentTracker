@@ -28,9 +28,11 @@
         <entry key="..\:/TournamentTracker/app/src/main/res/layout/fragment_groups.xml" value="0.25" />
         <entry key="..\:/TournamentTracker/app/src/main/res/layout/fragment_live.xml" value="0.15534420289855072" />
         <entry key="..\:/TournamentTracker/app/src/main/res/layout/fragment_matches.xml" value="0.15534420289855072" />
+        <entry key="..\:/TournamentTracker/app/src/main/res/layout/fragment_matches_date.xml" value="0.365625" />
         <entry key="..\:/TournamentTracker/app/src/main/res/layout/group_item.xml" value="0.18697916666666667" />
         <entry key="..\:/TournamentTracker/app/src/main/res/layout/group_table.xml" value="0.1" />
         <entry key="..\:/TournamentTracker/app/src/main/res/layout/match_table.xml" value="0.10552536231884058" />
+        <entry key="..\:/TournamentTracker/app/src/main/res/layout/tab_item.xml" value="0.19895833333333332" />
         <entry key="..\:/TournamentTracker/app/src/main/res/layout/team_details.xml" value="0.15989583333333332" />
         <entry key="..\:/TournamentTracker/app/src/main/res/layout/team_flag.xml" value="0.18697916666666667" />
         <entry key="..\:/TournamentTracker/app/src/main/res/menu/bottom_menu.xml" value="0.3645833333333333" />

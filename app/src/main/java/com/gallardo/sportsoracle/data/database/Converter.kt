@@ -17,6 +17,6 @@ class DateConverter {
 
     @TypeConverter
     fun dateToString(date: Date): String {
-        return date.toString("yyyMMddHHmm")
+        return date.toString("yyyyMMddHHmm")
     }
 }

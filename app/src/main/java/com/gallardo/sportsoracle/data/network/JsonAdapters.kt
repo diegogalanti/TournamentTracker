@@ -28,7 +28,7 @@ class JsonAdapters {
 
     @ToJson
     fun dateToJson(@StringToDate date: Date): String {
-        return date.toString("yyyMMddHHmm")
+        return date.toString("yyyyMMddHHmm")
     }
 
     @FromJson

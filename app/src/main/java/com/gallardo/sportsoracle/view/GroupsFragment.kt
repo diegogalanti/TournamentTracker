@@ -36,8 +36,6 @@ class GroupsFragment : Fragment() {
 
         return binding.root
     }
-
-
 }
 
 class MarginItemDecoration(private val spaceSize: Int) : RecyclerView.ItemDecoration() {

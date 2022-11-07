@@ -15,12 +15,13 @@ import com.gallardo.sportsoracle.R
 import com.gallardo.sportsoracle.databinding.GroupFixedRowBinding
 import com.gallardo.sportsoracle.databinding.GroupScrollRowBinding
 import com.gallardo.sportsoracle.databinding.GroupTeamFlagBinding
+import com.gallardo.sportsoracle.databinding.TabItemBinding
 import com.gallardo.sportsoracle.model.Group
-import com.gallardo.sportsoracle.model.Match
 import com.gallardo.sportsoracle.model.MatchWithTeamsDetails
 import com.gallardo.sportsoracle.model.TeamWithGroupResult
 import com.gallardo.sportsoracle.view.rvadapter.GroupsListAdapter
 import com.gallardo.sportsoracle.view.rvadapter.MatchesListAdapter
+import com.google.android.material.tabs.TabLayout
 import com.google.android.material.textview.MaterialTextView
 import java.text.SimpleDateFormat
 import java.util.*
@@ -139,4 +140,16 @@ fun bindImage(
         .build()
 
     Coil.imageLoader(imageView.context).enqueue(request)
+}
+
+@BindingAdapter("bind_tabs")
+fun bindDatesToTabs(
+    tabLayout: TabLayout,
+    data: List<String>
+) {
+    data.forEach() {
+        val tabItem = TabItemBinding.inflate(LayoutInflater.from(tabLayout.context),tabLayout,false)
+        //tabItem.dateVar = it.toString("MM/dd/yyy")
+        tabLayout.addView(tabItem.root)
+    }
 }

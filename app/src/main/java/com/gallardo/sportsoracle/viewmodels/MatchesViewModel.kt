@@ -45,6 +45,8 @@ class MatchesViewModel(application: Application) : AndroidViewModel(application)
         return listMatches
     }
 
+    val matchDates = sportsOracleRepository.getMatchesDates()
+
     private fun refreshDataFromRepository() {
         runBlocking {
             sportsOracleRepository.refreshDatabase()
