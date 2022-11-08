@@ -17,7 +17,6 @@ class MatchesViewModel(application: Application) : AndroidViewModel(application)
     fun getMatchesWithTeamsDetails(): List<MatchWithTeamsDetails> {
         val matches = sportsOracleRepository.getMatches()
         val teams = sportsOracleRepository.getTeams()
-        Log.e("Teams", teams.toString())
         val listMatches = mutableListOf<MatchWithTeamsDetails>()
         matches.forEach() { currentMatch ->
             if (currentMatch.teamOneKey != "-1")
@@ -41,11 +40,10 @@ class MatchesViewModel(application: Application) : AndroidViewModel(application)
                     }.flag
                 ))
         }
-        Log.e("Current", listMatches.toString())
         return listMatches
     }
 
-    val matchDates = sportsOracleRepository.getMatchesDates()
+    val matchDates = sportsOracleRepository.getMatchesDates().sorted()
 
     private fun refreshDataFromRepository() {
         runBlocking {

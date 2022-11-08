@@ -15,6 +15,9 @@ import com.gallardo.sportsoracle.view.rvadapter.MatchesListAdapter
 import com.gallardo.sportsoracle.viewmodels.MatchesViewModel
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class MatchesFragment : Fragment() {
@@ -36,7 +39,8 @@ class MatchesFragment : Fragment() {
 
         val tabLayout : TabLayout = view.findViewById(R.id.tab_layout)
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
-            tab.text = matchesViewModel.matchDates[position]
+            val date = SimpleDateFormat("yyyyMMddHHmm").parse(matchesViewModel.matchDates[position])
+            tab.text = date.toString("MM/dd/yyyy")
         }.attach()
     }
 
