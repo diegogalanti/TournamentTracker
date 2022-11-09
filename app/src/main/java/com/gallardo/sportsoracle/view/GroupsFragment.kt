@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import coil.Coil
@@ -22,7 +23,7 @@ import com.gallardo.sportsoracle.viewmodels.GroupsViewModel
 
 class GroupsFragment : Fragment() {
 
-    private val groupsViewModel: GroupsViewModel by activityViewModels()
+    private val groupsViewModel: GroupsViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

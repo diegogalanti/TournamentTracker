@@ -28,8 +28,8 @@ class SportsOracleRepository(private val database: SportsOracleDatabase) {
         return database.sportsOracleDao.getGroupMatchesAndGoals(groupKey)
     }
 
-    fun getMatches(): List<Match> {
-        return database.sportsOracleDao.getMatches()
+    fun getMatches(date: String): List<Match> {
+        return database.sportsOracleDao.getMatches(date)
     }
 
     fun getTeams(): List<Team> {

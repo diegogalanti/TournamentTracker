@@ -31,8 +31,9 @@ interface SportsOracleDao {
     @Query("SELECT flag FROM Team")
     fun getTeamsFlags(): List<String>
 
-    @Query("SELECT * FROM `Match`")
-    fun getMatches(): List<Match>
+    @Query("SELECT * FROM `Match` " +
+                "WHERE date = :date")
+    fun getMatches(date: String): List<Match>
 
     @Query("SELECT * FROM Team")
     fun getTeams(): List<Team>

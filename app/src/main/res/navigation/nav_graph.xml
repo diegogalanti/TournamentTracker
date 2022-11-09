@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/groupsFragment">
+    app:startDestination="@id/matchesFragment">
     <fragment
         android:id="@+id/groupsFragment"
         android:name="com.gallardo.sportsoracle.view.GroupsFragment"

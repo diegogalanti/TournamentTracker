@@ -14,8 +14,8 @@ class MatchesViewModel(application: Application) : AndroidViewModel(application)
 
     private val sportsOracleRepository = SportsOracleRepository(getDatabase(application))
 
-    fun getMatchesWithTeamsDetails(): List<MatchWithTeamsDetails> {
-        val matches = sportsOracleRepository.getMatches()
+    fun getMatchesWithTeamsDetails(date: String): List<MatchWithTeamsDetails> {
+        val matches = sportsOracleRepository.getMatches(date)
         val teams = sportsOracleRepository.getTeams()
         val listMatches = mutableListOf<MatchWithTeamsDetails>()
         matches.forEach() { currentMatch ->

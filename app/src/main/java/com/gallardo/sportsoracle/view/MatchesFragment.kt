@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.gallardo.sportsoracle.R
@@ -21,7 +22,7 @@ import java.util.*
 
 
 class MatchesFragment : Fragment() {
-    private val matchesViewModel: MatchesViewModel by activityViewModels()
+    private val matchesViewModel: MatchesViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -57,14 +58,14 @@ class MatchesTabsAdapter(fragment: Fragment, val matchesViewModel: MatchesViewMo
 
 }
 
-class MatchesFragmentByDate(val matchesViewModel: MatchesViewModel, val date: String) : Fragment() {
+class MatchesFragmentByDate(private val matchesViewModel: MatchesViewModel, private val date: String) : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         val binding = FragmentMatchesDateBinding.inflate(inflater, container, false)
         binding.matchList.adapter = MatchesListAdapter()
-        (binding.matchList.adapter as MatchesListAdapter).submitList(matchesViewModel.getMatchesWithTeamsDetails())
+        (binding.matchList.adapter as MatchesListAdapter).submitList(matchesViewModel.getMatchesWithTeamsDetails(date))
         return binding.root
     }
 }
