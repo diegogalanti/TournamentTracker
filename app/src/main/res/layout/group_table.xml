@@ -4,14 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <import type="com.gallardo.sportsoracle.model.Group"/>
+        <import type="java.util.List"/>
         <variable
             name="group"
-            type="com.gallardo.sportsoracle.model.Group" />
+            type="Group" />
 
         <variable
-            name="groupsViewModel"
-            type="com.gallardo.sportsoracle.viewmodels.GroupsViewModel" />
+            name="teams"
+            type="List&lt;com.gallardo.sportsoracle.model.TeamWithGroupResult>" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -34,7 +35,7 @@
                 android:layout_height="90dp"
                 android:columnCount="4"
                 android:orientation="horizontal"
-                app:bind_flags="@{groupsViewModel.getGroupTeamsFlags(group.key)}"
+                app:bind_flags="@{teams}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -108,7 +109,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="16dp"
-                app:teamsWithResults="@{groupsViewModel.getTeamsWithResults(group.key)}"
+                app:teamsWithResults="@{teams}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/details_divider">
 

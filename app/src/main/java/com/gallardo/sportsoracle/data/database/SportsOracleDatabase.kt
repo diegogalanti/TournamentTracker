@@ -5,7 +5,7 @@ import androidx.room.*
 import com.gallardo.sportsoracle.model.*
 
 @Database(
-    entities = [Card::class, Goal::class, Group::class, Match::class, Squad::class, Stadium::class, Team::class],
+    entities = [Card::class, Goal::class, Group::class, Match::class, Squad::class, Stadium::class, Team::class, TeamWithGroupResult::class],
     version = 1
 )
 abstract class SportsOracleDatabase : RoomDatabase() {

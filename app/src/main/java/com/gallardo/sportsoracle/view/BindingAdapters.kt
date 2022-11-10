@@ -1,7 +1,6 @@
 package com.gallardo.sportsoracle.view
 
-import android.content.Context
-import android.util.DisplayMetrics
+import android.util.Log
 import android.view.LayoutInflater
 import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -30,10 +29,12 @@ import java.util.*
 @BindingAdapter("groups_list")
 fun bindGroupsListAdapter(
     recyclerView: RecyclerView,
-    data: List<Group>?
+    groups: Map<Group, List<TeamWithGroupResult>>?
 ) {
-    val adapter = recyclerView.adapter as GroupsListAdapter
-    adapter.submitList(data)
+    if (groups != null) {
+        val adapter = recyclerView.adapter as GroupsListAdapter
+        adapter.submitList(groups.toList())
+    }
 }
 
 @BindingAdapter("matches_list")
@@ -48,17 +49,23 @@ fun bindMatchesListAdapter(
 @BindingAdapter("bind_flags")
 fun bindGroupTeamsFlags(
     gridLayout: GridLayout,
-    data: List<String>?
+    data: List<TeamWithGroupResult>
 ) {
     if (gridLayout.childCount != 0) {
-        data?.forEachIndexed { index, s ->
-            bindTeamImage((gridLayout[index] as ConstraintLayout)[0] as ImageView, s)
+        data.forEachIndexed { index, team ->
+            bindTeamImage((gridLayout[index] as ConstraintLayout)[0] as ImageView, team.flag)
+            ((gridLayout[index] as ConstraintLayout)[1] as MaterialTextView).text = team.points.toString()
         }
     } else {
-        data?.forEach() {
+        data.forEach() {
             val teamFlagView =
-                GroupTeamFlagBinding.inflate(LayoutInflater.from(gridLayout.context), gridLayout, false)
-            teamFlagView.flag = it
+                GroupTeamFlagBinding.inflate(
+                    LayoutInflater.from(gridLayout.context),
+                    gridLayout,
+                    false
+                )
+            teamFlagView.flag = it.flag
+            teamFlagView.score = it.points.toString()
             gridLayout.addView(teamFlagView.root)
         }
     }
@@ -75,12 +82,20 @@ fun bindGroupTeamsDetails(
     if (tableFixed.childCount == 1) {
         teamWithGroupResult.forEachIndexed { index, currentTeam ->
             val fixedRow =
-                GroupFixedRowBinding.inflate(LayoutInflater.from(tableFixed.context), tableFixed, false)
+                GroupFixedRowBinding.inflate(
+                    LayoutInflater.from(tableFixed.context),
+                    tableFixed,
+                    false
+                )
             fixedRow.position = (index + 1).toString()
             fixedRow.flag = currentTeam.flag
             fixedRow.name = currentTeam.name
             tableFixed.addView(fixedRow.root)
-            val scrollRow = GroupScrollRowBinding.inflate((LayoutInflater.from(tableScroll.context)),tableScroll,false)
+            val scrollRow = GroupScrollRowBinding.inflate(
+                (LayoutInflater.from(tableScroll.context)),
+                tableScroll,
+                false
+            )
             scrollRow.points = currentTeam.points.toString()
             scrollRow.played = currentTeam.played.toString()
             scrollRow.won = currentTeam.won.toString()
@@ -99,12 +114,18 @@ fun bindGroupTeamsDetails(
             )
             (((tableFixed[index + 1] as TableRow)[0] as LinearLayout)[2] as MaterialTextView).text =
                 currentTeam.name
-            ((tableScroll[index + 1] as TableRow)[0] as MaterialTextView).text = currentTeam.points.toString()
-            ((tableScroll[index + 1] as TableRow)[1] as MaterialTextView).text = currentTeam.played.toString()
-            ((tableScroll[index + 1] as TableRow)[2] as MaterialTextView).text = currentTeam.won.toString()
-            ((tableScroll[index + 1] as TableRow)[3] as MaterialTextView).text = currentTeam.drawn.toString()
-            ((tableScroll[index + 1] as TableRow)[4] as MaterialTextView).text = currentTeam.lost.toString()
-            ((tableScroll[index + 1] as TableRow)[5] as MaterialTextView).text = currentTeam.goalDiff
+            ((tableScroll[index + 1] as TableRow)[0] as MaterialTextView).text =
+                currentTeam.points.toString()
+            ((tableScroll[index + 1] as TableRow)[1] as MaterialTextView).text =
+                currentTeam.played.toString()
+            ((tableScroll[index + 1] as TableRow)[2] as MaterialTextView).text =
+                currentTeam.won.toString()
+            ((tableScroll[index + 1] as TableRow)[3] as MaterialTextView).text =
+                currentTeam.drawn.toString()
+            ((tableScroll[index + 1] as TableRow)[4] as MaterialTextView).text =
+                currentTeam.lost.toString()
+            ((tableScroll[index + 1] as TableRow)[5] as MaterialTextView).text =
+                currentTeam.goalDiff
 
         }
     }
@@ -113,11 +134,6 @@ fun bindGroupTeamsDetails(
 fun Date.toString(format: String, locale: Locale = Locale.getDefault()): String {
     val formatter = SimpleDateFormat(format, locale)
     return formatter.format(this)
-}
-
-fun convertPixelsToDp(px: Int, context: Context): Int {
-    return px * (context.resources
-        .displayMetrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT)
 }
 
 @BindingAdapter("bind_image")
@@ -129,7 +145,7 @@ fun bindTeamImage(
     bindImage(imageView, url)
 }
 
-fun bindImage(
+private fun bindImage(
     imageView: ImageView,
     url: String
 ) {
@@ -148,7 +164,8 @@ fun bindDatesToTabs(
     data: List<String>
 ) {
     data.forEach() {
-        val tabItem = TabItemBinding.inflate(LayoutInflater.from(tabLayout.context),tabLayout,false)
+        val tabItem =
+            TabItemBinding.inflate(LayoutInflater.from(tabLayout.context), tabLayout, false)
         //tabItem.dateVar = it.toString("MM/dd/yyy")
         tabLayout.addView(tabItem.root)
     }

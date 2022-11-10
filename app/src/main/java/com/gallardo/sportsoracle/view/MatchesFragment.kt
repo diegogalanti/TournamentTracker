@@ -47,7 +47,7 @@ class MatchesFragment : Fragment() {
 
 }
 
-class MatchesTabsAdapter(fragment: Fragment, val matchesViewModel: MatchesViewModel) : FragmentStateAdapter(fragment) {
+class MatchesTabsAdapter(fragment: Fragment, private val matchesViewModel: MatchesViewModel) : FragmentStateAdapter(fragment) {
     override fun getItemCount(): Int {
         return matchesViewModel.matchDates.size
     }

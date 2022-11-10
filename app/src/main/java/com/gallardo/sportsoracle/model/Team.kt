@@ -8,7 +8,7 @@ import com.squareup.moshi.Json
     foreignKeys = [
         ForeignKey(
             entity = Group::class,
-            parentColumns = arrayOf("key"),
+            parentColumns = arrayOf("gkey"),
             childColumns = arrayOf("group_key"),
             onDelete = ForeignKey.CASCADE,
             onUpdate = ForeignKey.CASCADE

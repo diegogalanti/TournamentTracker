@@ -2,19 +2,22 @@ package com.gallardo.sportsoracle.view.rvadapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.gallardo.sportsoracle.databinding.GroupTableBinding
 import com.gallardo.sportsoracle.model.Group
+import com.gallardo.sportsoracle.model.TeamWithGroupResult
 import com.gallardo.sportsoracle.viewmodels.GroupsViewModel
 
-class GroupsListAdapter(private val viewModel: GroupsViewModel) : ListAdapter<Group, GroupsListAdapter.GroupViewHolder>(DiffCallback) {
 
-    class GroupViewHolder(private val binding : GroupTableBinding, private val viewModel: GroupsViewModel) : RecyclerView.ViewHolder(binding.root) {
-        fun bind (group: Group) {
-            binding.group = group
-            binding.groupsViewModel = viewModel
+class GroupsListAdapter : ListAdapter<Pair<Group, List<TeamWithGroupResult>>, GroupsListAdapter.GroupViewHolder>(DiffCallback) {
+
+    class GroupViewHolder(private val binding : GroupTableBinding) : RecyclerView.ViewHolder(binding.root){
+        fun bind (group: Pair<Group,List<TeamWithGroupResult>>) {
+            binding.group = group.first
+            binding.teams = group.second.sortedByDescending { it.points }
         }
     }
 
@@ -24,16 +27,17 @@ class GroupsListAdapter(private val viewModel: GroupsViewModel) : ListAdapter<Gr
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GroupViewHolder {
-        return GroupViewHolder(GroupTableBinding.inflate(LayoutInflater.from(parent.context), parent, false), viewModel)
+        val binding = GroupTableBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return GroupViewHolder(binding)
     }
 
-    companion object DiffCallback : DiffUtil.ItemCallback<Group>() {
-        override fun areContentsTheSame(oldItem: Group, newItem: Group): Boolean {
-            return oldItem == newItem
+    companion object DiffCallback : DiffUtil.ItemCallback<Pair<Group, List<TeamWithGroupResult>>>() {
+        override fun areContentsTheSame(oldItem: Pair<Group, List<TeamWithGroupResult>>, newItem: Pair<Group, List<TeamWithGroupResult>>): Boolean {
+            return oldItem.first.key == newItem.first.key
         }
 
-        override fun areItemsTheSame(oldItem: Group, newItem: Group): Boolean {
-            return oldItem.key == newItem.key
+        override fun areItemsTheSame(oldItem: Pair<Group, List<TeamWithGroupResult>>, newItem: Pair<Group, List<TeamWithGroupResult>>): Boolean {
+            return oldItem == newItem
         }
     }
 }

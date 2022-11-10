@@ -30,9 +30,9 @@ class GroupsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val binding = FragmentGroupsBinding.inflate(inflater, container, false)
-        binding.lifecycleOwner = this
+        binding.lifecycleOwner = this.viewLifecycleOwner
         binding.groupsViewModel = groupsViewModel
-        binding.groupList.adapter = GroupsListAdapter(groupsViewModel)
+        binding.groupList.adapter = GroupsListAdapter()
         binding.groupList.addItemDecoration(MarginItemDecoration(32))
 
         return binding.root

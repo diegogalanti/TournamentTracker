@@ -1,6 +1,7 @@
 package com.gallardo.sportsoracle.data.database
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -10,8 +11,9 @@ import java.util.*
 
 @Dao
 interface SportsOracleDao {
-    @Query("SELECT * FROM `Group`")
-    fun getGroups(): List<Group>
+    @Query("SELECT * FROM `Group` " +
+            "LEFT JOIN TeamWithGroupResult ON `Group`.`gkey` = TeamWithGroupResult.groupKey")
+    fun getGroups(): LiveData<Map<Group, List<TeamWithGroupResult>>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertGroups(groups: List<Group>)
@@ -20,7 +22,7 @@ interface SportsOracleDao {
         "SELECT flag FROM Team " +
                 "WHERE group_key = :key"
     )
-    fun getGroupTeamsFlags(key: String): List<String>
+    fun getGroupTeamsFlags(key: String): LiveData<List<String>>
 
     @Query(
         "SELECT * FROM Team " +
@@ -44,8 +46,16 @@ interface SportsOracleDao {
     )
     fun getGroupMatchesAndGoals(groupKey: String): Map<Match, List<Goal>>
 
+    @Query("SELECT * FROM `match` " +
+            "LEFT JOIN goal ON `match`.`key` = goal.match_key "
+    )
+    fun getMatchesAndGoals(): Map<Match, List<Goal>>
+
     @Query("SELECT DISTINCT date FROM `match`")
     fun getMatchesDates() : List<String>
+
+    @Query("SELECT * FROM TeamWithGroupResult")
+    fun getTeamsWithGroupResults() : LiveData<List<TeamWithGroupResult>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertCards(cards: List<Card>)
@@ -64,4 +74,7 @@ interface SportsOracleDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertStadiums(stadiums: List<Stadium>)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertTeamsWithGroupResults(listTeamsWithGroupResults: List<TeamWithGroupResult>)
 }
