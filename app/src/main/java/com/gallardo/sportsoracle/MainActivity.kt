@@ -53,11 +53,9 @@ class MainActivity : AppCompatActivity() {
         val parent = arrow.parent as ViewGroup
         val hiddenGroup = parent.findViewById<View>(R.id.expand_group)
         if (hiddenGroup.visibility == View.VISIBLE) {
-//                TransitionManager().beginDelayedTransition(cardView, AutoTransition())
             hiddenGroup.visibility = View.GONE
             (arrow as MaterialButton).setIconResource(R.drawable.ic_expand_more_24)
         } else {
-//                TransitionManager.beginDelayedTransition(cardView, AutoTransition())
             hiddenGroup.visibility = View.VISIBLE
             (arrow as MaterialButton).setIconResource(R.drawable.ic_expand_less_24)
         }

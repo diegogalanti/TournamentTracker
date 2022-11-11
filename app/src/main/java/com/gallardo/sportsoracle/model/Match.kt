@@ -6,18 +6,7 @@ import com.gallardo.sportsoracle.data.network.StringToDate
 import com.squareup.moshi.Json
 import java.util.*
 
-@Entity(
-    //indices = [Index("group_key"),Index("stadium_key"),Index("team_one_key"),Index("team_two_key")],
-    foreignKeys = [
-        ForeignKey(
-            entity = Stadium::class,
-            parentColumns = arrayOf("key"),
-            childColumns = arrayOf("stadium_key"),
-            onDelete = ForeignKey.CASCADE,
-            onUpdate = ForeignKey.CASCADE
-        )
-    ]
-)
+@Entity
 @TypeConverters(DateConverter::class)
 data class Match(
     @PrimaryKey

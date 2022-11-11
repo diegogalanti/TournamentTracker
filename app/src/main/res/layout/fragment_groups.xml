@@ -9,11 +9,10 @@
             type="com.gallardo.sportsoracle.viewmodels.GroupsViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swiperefresh"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/md_theme_light_surface"
-        tools:context=".view.GroupsFragment">
+        android:layout_height="match_parent">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/group_list"
@@ -21,11 +20,9 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             app:groups_list="@{groupsViewModel.groups}"
             tools:itemCount="24"
             tools:listitem="@layout/group_table"/>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </layout>

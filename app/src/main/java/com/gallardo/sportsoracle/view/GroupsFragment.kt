@@ -2,23 +2,17 @@ package com.gallardo.sportsoracle.view
 
 import android.graphics.Rect
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
-import coil.Coil
-import coil.ImageLoader
-import coil.decode.SvgDecoder
-import coil.disk.DiskCache
-import com.gallardo.sportsoracle.R
+
 import com.gallardo.sportsoracle.databinding.FragmentGroupsBinding
 import com.gallardo.sportsoracle.view.rvadapter.GroupsListAdapter
 import com.gallardo.sportsoracle.viewmodels.GroupsViewModel
+import kotlinx.coroutines.*
 
 
 class GroupsFragment : Fragment() {
@@ -34,6 +28,12 @@ class GroupsFragment : Fragment() {
         binding.groupsViewModel = groupsViewModel
         binding.groupList.adapter = GroupsListAdapter()
         binding.groupList.addItemDecoration(MarginItemDecoration(32))
+        binding.swiperefresh.setOnRefreshListener {
+            CoroutineScope(Dispatchers.IO).launch {
+                groupsViewModel.refreshGroups()
+                binding.swiperefresh.isRefreshing = false
+            }
+        }
 
         return binding.root
     }

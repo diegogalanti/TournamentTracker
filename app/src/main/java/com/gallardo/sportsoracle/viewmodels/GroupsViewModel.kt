@@ -20,4 +20,9 @@ class GroupsViewModel(application: Application) : AndroidViewModel(application) 
             sportsOracleRepository.refreshDatabase()
         }
     }
+
+    suspend fun refreshGroups() {
+        sportsOracleRepository.refreshGroupsDatabase()
+
+    }
 }

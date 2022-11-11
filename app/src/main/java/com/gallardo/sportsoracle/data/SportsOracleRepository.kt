@@ -59,6 +59,16 @@ class SportsOracleRepository(private val database: SportsOracleDatabase) {
         }
     }
 
+    suspend fun refreshGroupsDatabase() {
+        withContext(Dispatchers.IO) {
+            try {
+                refreshGroups()
+            } catch (e: Exception) {
+                Log.e("Error", e.toString())
+            }
+        }
+    }
+
     private suspend fun refreshGroups() {
         val groups = FootballApi.retrofitService.getGroups().items
         val teams = FootballApi.retrofitService.getTeams().items

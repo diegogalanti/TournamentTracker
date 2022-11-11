@@ -15,8 +15,11 @@ class MatchesViewModel(application: Application) : AndroidViewModel(application)
     private val sportsOracleRepository = SportsOracleRepository(getDatabase(application))
 
     fun getMatchesWithTeamsDetails(date: String): List<MatchWithTeamsDetails> {
+        Log.e("Date",date)
         val matches = sportsOracleRepository.getMatches(date)
+        Log.e("matches",matches.toString())
         val teams = sportsOracleRepository.getTeams()
+        Log.e("teams",teams.toString())
         val listMatches = mutableListOf<MatchWithTeamsDetails>()
         matches.forEach() { currentMatch ->
             if (currentMatch.teamOneKey != "-1")

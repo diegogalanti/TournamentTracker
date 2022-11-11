@@ -3,18 +3,7 @@ package com.gallardo.sportsoracle.model
 import androidx.room.*
 import com.squareup.moshi.Json
 
-@Entity(
-    //indices = [Index("group_key")],
-    foreignKeys = [
-        ForeignKey(
-            entity = Group::class,
-            parentColumns = arrayOf("gkey"),
-            childColumns = arrayOf("group_key"),
-            onDelete = ForeignKey.CASCADE,
-            onUpdate = ForeignKey.CASCADE
-        )
-    ]
-)
+@Entity
 data class Team(
     @PrimaryKey
     val key: String,
