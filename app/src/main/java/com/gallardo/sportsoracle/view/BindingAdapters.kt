@@ -166,7 +166,6 @@ fun bindDatesToTabs(
     data.forEach() {
         val tabItem =
             TabItemBinding.inflate(LayoutInflater.from(tabLayout.context), tabLayout, false)
-        //tabItem.dateVar = it.toString("MM/dd/yyy")
         tabLayout.addView(tabItem.root)
     }
 }

@@ -1,6 +1,5 @@
 package com.gallardo.sportsoracle.data.database
 
-import android.util.Log
 import androidx.room.TypeConverter
 import com.gallardo.sportsoracle.view.toString
 import java.text.SimpleDateFormat
