@@ -1,7 +1,6 @@
 package com.gallardo.sportsoracle
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
@@ -11,13 +10,16 @@ import coil.Coil
 import coil.ImageLoader
 import coil.decode.SvgDecoder
 import coil.disk.DiskCache
-import com.gallardo.sportsoracle.data.SportsOracleRepository
+import com.gallardo.sportsoracle.data.GroupsRepository
+import com.gallardo.sportsoracle.data.GroupsRepositoryImpl
+import com.gallardo.sportsoracle.data.MatchesRepositoryImpl
 import com.gallardo.sportsoracle.data.database.SportsOracleDatabase
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.button.MaterialButton
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.runBlocking
 
-
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,9 +30,6 @@ class MainActivity : AppCompatActivity() {
         val navController = navHostFragment.navController
         bottomNavigationView.setupWithNavController(navController)
         createImageLoader()
-        runBlocking {
-            SportsOracleRepository(SportsOracleDatabase.getDatabase(application)).refreshDatabase()
-        }
     }
 
     private fun createImageLoader() {

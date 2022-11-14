@@ -12,9 +12,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.gallardo.sportsoracle.databinding.FragmentGroupsBinding
 import com.gallardo.sportsoracle.view.rvadapter.GroupsListAdapter
 import com.gallardo.sportsoracle.viewmodels.GroupsViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.*
 
-
+@AndroidEntryPoint
 class GroupsFragment : Fragment() {
 
     private val groupsViewModel: GroupsViewModel by viewModels()

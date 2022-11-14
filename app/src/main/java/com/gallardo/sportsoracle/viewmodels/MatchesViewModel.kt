@@ -1,56 +1,29 @@
 package com.gallardo.sportsoracle.viewmodels
 
-import android.app.Application
-import android.util.Log
 import androidx.lifecycle.*
-import com.gallardo.sportsoracle.data.SportsOracleRepository
-import com.gallardo.sportsoracle.data.database.SportsOracleDatabase.Companion.getDatabase
+import com.gallardo.sportsoracle.data.MatchesRepository
 import com.gallardo.sportsoracle.model.*
-import kotlinx.coroutines.runBlocking
-import java.util.*
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
+@HiltViewModel
+class MatchesViewModel @Inject constructor(
+    private val matchesRepository : MatchesRepository) : ViewModel() {
 
-class MatchesViewModel(application: Application) : AndroidViewModel(application) {
-
-    private val sportsOracleRepository = SportsOracleRepository(getDatabase(application))
-
-    fun getMatchesWithTeamsDetails(date: String): List<MatchWithTeamsDetails> {
-        Log.e("Date",date)
-        val matches = sportsOracleRepository.getMatches(date)
-        Log.e("matches",matches.toString())
-        val teams = sportsOracleRepository.getTeams()
-        Log.e("teams",teams.toString())
-        val listMatches = mutableListOf<MatchWithTeamsDetails>()
-        matches.forEach() { currentMatch ->
-            if (currentMatch.teamOneKey != "-1")
-                listMatches.add(MatchWithTeamsDetails(
-                    currentMatch.key,
-                    currentMatch.date,
-                    currentMatch.groupKey,
-                    currentMatch.stadiumKey,
-                    currentMatch.time,
-                    teams.first {
-                        it.key == currentMatch.teamOneKey
-                    }.name,
-                    teams.first {
-                        it.key == currentMatch.teamOneKey
-                    }.flag,
-                    teams.first {
-                        it.key == currentMatch.teamTwoKey
-                    }.name,
-                    teams.first {
-                        it.key == currentMatch.teamTwoKey
-                    }.flag
-                ))
-        }
-        return listMatches
+    init {
+        CoroutineScope(Dispatchers.IO).launch { refreshMatches() }
     }
 
-    val matchDates = sportsOracleRepository.getMatchesDates().sorted()
+   val matchDates = matchesRepository.getMatchesDates()
 
-    private fun refreshDataFromRepository() {
-        runBlocking {
-            sportsOracleRepository.refreshDatabase()
-        }
+    fun matchesWithTeamDetails(date: String) : LiveData<List<MatchWithTeamsDetails>> {
+        return matchesRepository.getMatchesWithTeamsDetails(date)
+    }
+
+    private suspend fun refreshMatches() {
+        matchesRepository.refreshMatchesDatabase()
     }
 }

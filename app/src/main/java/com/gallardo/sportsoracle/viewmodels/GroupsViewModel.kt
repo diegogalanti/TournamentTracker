@@ -1,28 +1,24 @@
 package com.gallardo.sportsoracle.viewmodels
 
-import android.app.Application
 import androidx.lifecycle.*
-import com.gallardo.sportsoracle.data.SportsOracleRepository
-import com.gallardo.sportsoracle.data.database.SportsOracleDatabase.Companion.getDatabase
-import kotlinx.coroutines.runBlocking
+import com.gallardo.sportsoracle.data.GroupsRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
+@HiltViewModel
+class GroupsViewModel @Inject constructor(
+    private val groupsRepository : GroupsRepository) : ViewModel() {
 
-class GroupsViewModel(application: Application) : AndroidViewModel(application) {
-
-    private val sportsOracleRepository = SportsOracleRepository(getDatabase(application))
-
-    val groups = sportsOracleRepository.getGroups()
-
-    val teamWithGroupResults = sportsOracleRepository.getTeamsWithGroupResults()
-
-    private fun refreshDataFromRepository() {
-        runBlocking {
-            sportsOracleRepository.refreshDatabase()
-        }
+    init {
+        CoroutineScope(Dispatchers.IO).launch { refreshGroups() }
     }
 
-    suspend fun refreshGroups() {
-        sportsOracleRepository.refreshGroupsDatabase()
+    val groups = groupsRepository.getGroups()
 
+    suspend fun refreshGroups() {
+        groupsRepository.refreshGroupsDatabase()
     }
 }
