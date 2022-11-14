@@ -5,15 +5,16 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.gallardo.sportsoracle.data.database.model.GroupEntity
 import com.gallardo.sportsoracle.databinding.GroupTableBinding
 import com.gallardo.sportsoracle.data.network.model.NetworkGroup
 import com.gallardo.sportsoracle.data.database.model.TeamWithGroupResultEntity
 
 
-class GroupsListAdapter : ListAdapter<Pair<NetworkGroup, List<TeamWithGroupResultEntity>>, GroupsListAdapter.GroupViewHolder>(DiffCallback) {
+class GroupsListAdapter : ListAdapter<Pair<GroupEntity, List<TeamWithGroupResultEntity>>, GroupsListAdapter.GroupViewHolder>(DiffCallback) {
 
     class GroupViewHolder(private val binding : GroupTableBinding) : RecyclerView.ViewHolder(binding.root){
-        fun bind (group: Pair<NetworkGroup,List<TeamWithGroupResultEntity>>) {
+        fun bind (group: Pair<GroupEntity,List<TeamWithGroupResultEntity>>) {
             binding.group = group.first
             binding.teams = group.second.sortedByDescending { it.points }
         }
@@ -29,12 +30,12 @@ class GroupsListAdapter : ListAdapter<Pair<NetworkGroup, List<TeamWithGroupResul
         return GroupViewHolder(binding)
     }
 
-    companion object DiffCallback : DiffUtil.ItemCallback<Pair<NetworkGroup, List<TeamWithGroupResultEntity>>>() {
-        override fun areContentsTheSame(oldItem: Pair<NetworkGroup, List<TeamWithGroupResultEntity>>, newItem: Pair<NetworkGroup, List<TeamWithGroupResultEntity>>): Boolean {
-            return oldItem.first.key == newItem.first.key
+    companion object DiffCallback : DiffUtil.ItemCallback<Pair<GroupEntity, List<TeamWithGroupResultEntity>>>() {
+        override fun areContentsTheSame(oldItem: Pair<GroupEntity, List<TeamWithGroupResultEntity>>, newItem: Pair<GroupEntity, List<TeamWithGroupResultEntity>>): Boolean {
+            return oldItem.first.gkey == newItem.first.gkey
         }
 
-        override fun areItemsTheSame(oldItem: Pair<NetworkGroup, List<TeamWithGroupResultEntity>>, newItem: Pair<NetworkGroup, List<TeamWithGroupResultEntity>>): Boolean {
+        override fun areItemsTheSame(oldItem: Pair<GroupEntity, List<TeamWithGroupResultEntity>>, newItem: Pair<GroupEntity, List<TeamWithGroupResultEntity>>): Boolean {
             return oldItem == newItem
         }
     }

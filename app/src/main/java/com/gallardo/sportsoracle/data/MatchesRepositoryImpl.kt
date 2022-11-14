@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import com.gallardo.sportsoracle.data.database.MatchesDao
 import com.gallardo.sportsoracle.data.database.model.MatchWithTeamsDetailsEntity
 import com.gallardo.sportsoracle.data.network.FootballApi
+import com.gallardo.sportsoracle.data.network.model.asEntity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -57,7 +58,7 @@ class MatchesRepositoryImpl @Inject constructor(private val matchesDao: MatchesD
                 )
                 )
         }
-        matchesDao.insertMatches(matches)
+        matchesDao.insertMatches(matches.map { it.asEntity() })
         matchesDao.insertMatchesWithTeamsDetails(listMatchesWithTeamsDetails)
     }
 }

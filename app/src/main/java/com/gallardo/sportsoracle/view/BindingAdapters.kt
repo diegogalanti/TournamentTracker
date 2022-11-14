@@ -1,5 +1,6 @@
 package com.gallardo.sportsoracle.view
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -10,6 +11,7 @@ import coil.Coil
 import coil.request.ImageRequest
 import coil.size.Scale
 import com.gallardo.sportsoracle.R
+import com.gallardo.sportsoracle.data.database.model.GroupEntity
 import com.gallardo.sportsoracle.databinding.GroupFixedRowBinding
 import com.gallardo.sportsoracle.databinding.GroupScrollRowBinding
 import com.gallardo.sportsoracle.databinding.GroupTeamFlagBinding
@@ -28,10 +30,11 @@ import java.util.*
 @BindingAdapter("groups_list")
 fun bindGroupsListAdapter(
     recyclerView: RecyclerView,
-    groups: Map<NetworkGroup, List<TeamWithGroupResultEntity>>?
+    groups: Map<GroupEntity, List<TeamWithGroupResultEntity>>?
 ) {
     if (groups != null) {
         val adapter = recyclerView.adapter as GroupsListAdapter
+        Log.e("Oxi", groups.toString())
         adapter.submitList(groups.toList())
     }
 }
@@ -75,6 +78,7 @@ fun bindGroupTeamsDetails(
     detailsCl: ConstraintLayout,
     teamWithGroupResult: List<TeamWithGroupResultEntity>
 ) {
+    Log.e("Oxi", teamWithGroupResult.toString())
     val tableFixed = detailsCl.findViewById<TableLayout>(R.id.table_fixed)
     val tableScroll = detailsCl.findViewById<TableLayout>(R.id.table_scroll)
 

@@ -1,7 +1,6 @@
 package com.gallardo.sportsoracle.data.network.model
 
-import androidx.room.*
-import com.gallardo.sportsoracle.data.database.DateConverter
+import com.gallardo.sportsoracle.data.database.model.MatchEntity
 import com.gallardo.sportsoracle.data.network.StringToDate
 import com.squareup.moshi.Json
 import java.util.*
@@ -30,3 +29,6 @@ data class NetworkMatch(
     @StringToDate
     val time: Date
 )
+
+fun NetworkMatch.asEntity() =
+    MatchEntity(key, date, groupKey, matchNumber, stadiumKey, teamTwoKey, teamOneKey, time)

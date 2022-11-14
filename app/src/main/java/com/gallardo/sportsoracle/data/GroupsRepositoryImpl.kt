@@ -3,17 +3,20 @@ package com.gallardo.sportsoracle.data
 import android.util.Log
 import androidx.lifecycle.LiveData
 import com.gallardo.sportsoracle.data.database.GroupsDao
+import com.gallardo.sportsoracle.data.database.model.GroupEntity
 import com.gallardo.sportsoracle.data.database.model.MatchEntity
 import com.gallardo.sportsoracle.data.database.model.TeamWithGroupResultEntity
 import com.gallardo.sportsoracle.data.network.FootballApi
 import com.gallardo.sportsoracle.data.network.model.NetworkGoal
 import com.gallardo.sportsoracle.data.network.model.NetworkGroup
+import com.gallardo.sportsoracle.data.network.model.asEntity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class GroupsRepositoryImpl @Inject constructor(private val groupsDao: GroupsDao) : GroupsRepository {
-    override fun getGroups(): LiveData<Map<NetworkGroup, List<TeamWithGroupResultEntity>>> {
+class GroupsRepositoryImpl @Inject constructor(private val groupsDao: GroupsDao) :
+    GroupsRepository {
+    override fun getGroups(): LiveData<Map<GroupEntity, List<TeamWithGroupResultEntity>>> {
         return groupsDao.getGroups()
     }
 
@@ -54,10 +57,10 @@ class GroupsRepositoryImpl @Inject constructor(private val groupsDao: GroupsDao)
             )
             fillResult(teamWithResults, matches.filter {
                 it.teamOneKey == currentTeam.key || it.teamTwoKey == currentTeam.key
-            }, goals)
+            }.map { it.asEntity() }, goals)
             listTeamsWithGroupResults.add(teamWithResults)
         }
-        groupsDao.insertGroups(groups)
+        groupsDao.insertGroups(groups.map { it.asEntity() })
         groupsDao.insertTeamsWithGroupResults(listTeamsWithGroupResults)
     }
 
