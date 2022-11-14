@@ -2,64 +2,24 @@ package com.gallardo.sportsoracle.data
 
 import android.util.Log
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import com.gallardo.sportsoracle.data.database.GroupsDao
 import com.gallardo.sportsoracle.data.database.SportsOracleDatabase
 import com.gallardo.sportsoracle.data.network.FootballApi
 import com.gallardo.sportsoracle.model.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import java.util.*
+import javax.inject.Inject
 
-class SportsOracleRepository(private val database: SportsOracleDatabase) {
-    fun getGroups(): LiveData<Map<Group, List<TeamWithGroupResult>>> {
-        return database.sportsOracleDao.getGroups()
+class GroupsRepositoryImpl @Inject constructor(private val groupsDao: GroupsDao) : GroupsRepository {
+    override fun getGroups(): LiveData<Map<Group, List<TeamWithGroupResult>>> {
+        return groupsDao.getGroups()
     }
 
-    fun getGroupTeamsFlags(groupKey: String): LiveData<List<String>> {
-        return database.sportsOracleDao.getGroupTeamsFlags(groupKey)
+    override fun getTeamsWithGroupResults(): LiveData<List<TeamWithGroupResult>> {
+        return groupsDao.getTeamsWithGroupResults()
     }
 
-    fun getGroupTeams(groupKey: String): List<Team> {
-        return database.sportsOracleDao.getGroupTeams(groupKey)
-    }
-
-    fun getGroupMatchesAndGoals(groupKey: String): Map<Match, List<Goal>> {
-        return database.sportsOracleDao.getGroupMatchesAndGoals(groupKey)
-    }
-
-    fun getMatches(date: String): List<Match> {
-        return database.sportsOracleDao.getMatches(date)
-    }
-
-    fun getTeams(): List<Team> {
-        return database.sportsOracleDao.getTeams()
-    }
-
-    fun getMatchesDates(): List<String> {
-        return database.sportsOracleDao.getMatchesDates()
-    }
-
-    fun getTeamsWithGroupResults(): LiveData<List<TeamWithGroupResult>> {
-        return database.sportsOracleDao.getTeamsWithGroupResults()
-    }
-
-    suspend fun refreshDatabase() {
-        withContext(Dispatchers.IO) {
-            try {
-                refreshGroups()
-                refreshTeams()
-                refreshStadiums()
-                refreshSquads()
-                refreshMatches()
-                refreshCards()
-                refreshGoals()
-            } catch (e: Exception) {
-                Log.e("Error", e.toString())
-            }
-        }
-    }
-
-    suspend fun refreshGroupsDatabase() {
+    override suspend fun refreshGroupsDatabase() {
         withContext(Dispatchers.IO) {
             try {
                 refreshGroups()
@@ -95,8 +55,8 @@ class SportsOracleRepository(private val database: SportsOracleDatabase) {
             }, goals)
             listTeamsWithGroupResults.add(teamWithResults)
         }
-        database.sportsOracleDao.insertGroups(groups)
-        database.sportsOracleDao.insertTeamsWithGroupResults(listTeamsWithGroupResults)
+        groupsDao.insertGroups(groups)
+        groupsDao.insertTeamsWithGroupResults(listTeamsWithGroupResults)
     }
 
     private fun fillResult(
@@ -132,35 +92,5 @@ class SportsOracleRepository(private val database: SportsOracleDatabase) {
         teamWithResults.won = won
         teamWithResults.lost = lost
         teamWithResults.drawn = drawn
-    }
-
-    private suspend fun refreshCards() {
-        val cards = FootballApi.retrofitService.getCards().items
-        database.sportsOracleDao.insertCards(cards)
-    }
-
-    private suspend fun refreshGoals() {
-        val goals = FootballApi.retrofitService.getGoals().items
-        database.sportsOracleDao.insertGoals(goals)
-    }
-
-    private suspend fun refreshMatches() {
-        val matches = FootballApi.retrofitService.getMatches().items
-        database.sportsOracleDao.insertMatches(matches)
-    }
-
-    private suspend fun refreshSquads() {
-        val squads = FootballApi.retrofitService.getSquads().items
-        database.sportsOracleDao.insertSquads(squads)
-    }
-
-    private suspend fun refreshTeams() {
-        val teams = FootballApi.retrofitService.getTeams().items
-        database.sportsOracleDao.insertTeams(teams)
-    }
-
-    private suspend fun refreshStadiums() {
-        val stadiums = FootballApi.retrofitService.getStadiums().items
-        database.sportsOracleDao.insertStadiums(stadiums)
     }
 }
