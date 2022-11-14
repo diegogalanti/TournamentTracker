@@ -4,15 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <import type="com.gallardo.sportsoracle.model.Group"/>
+        <import type="com.gallardo.sportsoracle.data.network.model.NetworkGroup"/>
         <import type="java.util.List"/>
         <variable
             name="group"
-            type="Group" />
+            type="com.gallardo.sportsoracle.data.network.model.NetworkGroup" />
 
         <variable
             name="teams"
-            type="List&lt;com.gallardo.sportsoracle.model.TeamWithGroupResult>" />
+            type="com.gallardo.sportsoracle.data.database.model.TeamWithGroupResultEntity" />
     </data>
 
     <com.google.android.material.card.MaterialCardView

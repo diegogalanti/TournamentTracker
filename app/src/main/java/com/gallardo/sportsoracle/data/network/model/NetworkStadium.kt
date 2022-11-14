@@ -1,11 +1,9 @@
-package com.gallardo.sportsoracle.model
+package com.gallardo.sportsoracle.data.network.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity
-data class Stadium(
-    @PrimaryKey
+data class NetworkStadium(
     val key: String,
     val name: String
 )

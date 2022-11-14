@@ -1,6 +1,5 @@
 package com.gallardo.sportsoracle.view
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -15,9 +14,9 @@ import com.gallardo.sportsoracle.databinding.GroupFixedRowBinding
 import com.gallardo.sportsoracle.databinding.GroupScrollRowBinding
 import com.gallardo.sportsoracle.databinding.GroupTeamFlagBinding
 import com.gallardo.sportsoracle.databinding.TabItemBinding
-import com.gallardo.sportsoracle.model.Group
-import com.gallardo.sportsoracle.model.MatchWithTeamsDetails
-import com.gallardo.sportsoracle.model.TeamWithGroupResult
+import com.gallardo.sportsoracle.data.network.model.NetworkGroup
+import com.gallardo.sportsoracle.data.database.model.MatchWithTeamsDetailsEntity
+import com.gallardo.sportsoracle.data.database.model.TeamWithGroupResultEntity
 import com.gallardo.sportsoracle.view.rvadapter.GroupsListAdapter
 import com.gallardo.sportsoracle.view.rvadapter.MatchesListAdapter
 import com.google.android.material.tabs.TabLayout
@@ -29,7 +28,7 @@ import java.util.*
 @BindingAdapter("groups_list")
 fun bindGroupsListAdapter(
     recyclerView: RecyclerView,
-    groups: Map<Group, List<TeamWithGroupResult>>?
+    groups: Map<NetworkGroup, List<TeamWithGroupResultEntity>>?
 ) {
     if (groups != null) {
         val adapter = recyclerView.adapter as GroupsListAdapter
@@ -40,7 +39,7 @@ fun bindGroupsListAdapter(
 @BindingAdapter("matches_list")
 fun bindMatchesListAdapter(
     recyclerView: RecyclerView,
-    data: List<MatchWithTeamsDetails>?
+    data: List<MatchWithTeamsDetailsEntity>?
 ) {
     val adapter = recyclerView.adapter as MatchesListAdapter
     adapter.submitList(data)
@@ -49,7 +48,7 @@ fun bindMatchesListAdapter(
 @BindingAdapter("bind_flags")
 fun bindGroupTeamsFlags(
     gridLayout: GridLayout,
-    data: List<TeamWithGroupResult>
+    data: List<TeamWithGroupResultEntity>
 ) {
     if (gridLayout.childCount != 0) {
         data.forEachIndexed { index, team ->
@@ -74,7 +73,7 @@ fun bindGroupTeamsFlags(
 @BindingAdapter("teamsWithResults")
 fun bindGroupTeamsDetails(
     detailsCl: ConstraintLayout,
-    teamWithGroupResult: List<TeamWithGroupResult>
+    teamWithGroupResult: List<TeamWithGroupResultEntity>
 ) {
     val tableFixed = detailsCl.findViewById<TableLayout>(R.id.table_fixed)
     val tableScroll = detailsCl.findViewById<TableLayout>(R.id.table_scroll)

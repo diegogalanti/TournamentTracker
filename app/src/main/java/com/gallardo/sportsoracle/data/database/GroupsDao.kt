@@ -1,40 +1,44 @@
 package com.gallardo.sportsoracle.data.database
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.gallardo.sportsoracle.model.*
-import java.util.*
+import com.gallardo.sportsoracle.data.database.model.MatchEntity
+import com.gallardo.sportsoracle.data.database.model.MatchWithTeamsDetailsEntity
+import com.gallardo.sportsoracle.data.database.model.TeamWithGroupResultEntity
+import com.gallardo.sportsoracle.data.network.model.NetworkGroup
 
 @Dao
 interface GroupsDao {
     @Query("SELECT * FROM `Group` " +
-            "LEFT JOIN TeamWithGroupResult ON `Group`.`gkey` = TeamWithGroupResult.groupKey")
-    fun getGroups(): LiveData<Map<Group, List<TeamWithGroupResult>>>
+            "LEFT JOIN TeamWithGroupResultEntity ON `Group`.`gkey` = TeamWithGroupResultEntity.groupKey"
+    )
+    fun getGroups(): LiveData<Map<NetworkGroup, List<TeamWithGroupResultEntity>>>
 
     @Query("SELECT DISTINCT date FROM `match` " +
             "ORDER BY date")
     fun getMatchesDates() : LiveData<List<String>>
 
-    @Query("SELECT * FROM TeamWithGroupResult")
-    fun getTeamsWithGroupResults() : LiveData<List<TeamWithGroupResult>>
+    @Query("SELECT * FROM TeamWithGroupResultEntity")
+    fun getTeamsWithGroupResults() : LiveData<List<TeamWithGroupResultEntity>>
 
-    @Query("SELECT * FROM MatchWithTeamsDetails " +
-            "WHERE MatchWithTeamsDetails.date = :date")
-    fun getMatchesWithTeamsDetails(date: String) : LiveData<List<MatchWithTeamsDetails>>
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertGroups(groups: List<Group>)
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertTeamsWithGroupResults(listTeamsWithGroupResults: List<TeamWithGroupResult>)
+    @Query(
+        "SELECT * FROM MatchWithTeamsDetailsEntity " +
+                "WHERE MatchWithTeamsDetailsEntity.date = :date"
+    )
+    fun getMatchesWithTeamsDetails(date: String) : LiveData<List<MatchWithTeamsDetailsEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertMatches(matches: List<Match>)
+    fun insertGroups(groups: List<NetworkGroup>)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertMatchesWithTeamsDetails(listMatchesWithTeamsDetails: List<MatchWithTeamsDetails>)
+    fun insertTeamsWithGroupResults(listTeamsWithGroupResults: List<TeamWithGroupResultEntity>)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertMatches(matches: List<MatchEntity>)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertMatchesWithTeamsDetails(listMatchesWithTeamsDetails: List<MatchWithTeamsDetailsEntity>)
 }

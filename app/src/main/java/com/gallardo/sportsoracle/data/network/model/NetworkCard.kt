@@ -1,19 +1,13 @@
-package com.gallardo.sportsoracle.model
+package com.gallardo.sportsoracle.data.network.model
 
-import androidx.room.*
 import com.squareup.moshi.Json
 
-@Entity
-data class Card(
-    @PrimaryKey
+data class NetworkCard(
     val key: String,
-
     @Json(name = "match_id")
-    @ColumnInfo(name = "match_key")
     val matchKey: String,
 
     @Json(name = "squad_key")
-    @ColumnInfo(name = "squad_key")
     val squadKey: String,
 
     val type: String

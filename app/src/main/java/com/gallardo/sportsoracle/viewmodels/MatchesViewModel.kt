@@ -2,7 +2,7 @@ package com.gallardo.sportsoracle.viewmodels
 
 import androidx.lifecycle.*
 import com.gallardo.sportsoracle.data.MatchesRepository
-import com.gallardo.sportsoracle.model.*
+import com.gallardo.sportsoracle.data.database.model.MatchWithTeamsDetailsEntity
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -19,7 +19,7 @@ class MatchesViewModel @Inject constructor(
 
    val matchDates = matchesRepository.getMatchesDates()
 
-    fun matchesWithTeamDetails(date: String) : LiveData<List<MatchWithTeamsDetails>> {
+    fun matchesWithTeamDetails(date: String) : LiveData<List<MatchWithTeamsDetailsEntity>> {
         return matchesRepository.getMatchesWithTeamsDetails(date)
     }
 

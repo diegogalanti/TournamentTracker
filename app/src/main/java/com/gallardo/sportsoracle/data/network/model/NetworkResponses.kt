@@ -1,41 +1,41 @@
 package com.gallardo.sportsoracle.data.network
 
-import com.gallardo.sportsoracle.model.*
+import com.gallardo.sportsoracle.data.network.model.*
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
 data class GroupResponse(
-    val items: List<Group>
+    val items: List<NetworkGroup>
 )
 
 @JsonClass(generateAdapter = true)
 data class CardResponse(
-    val items: List<Card>
+    val items: List<NetworkCard>
 )
 
 @JsonClass(generateAdapter = true)
 data class GoalResponse(
-    val items: List<Goal>
+    val items: List<NetworkGoal>
 )
 
 @JsonClass(generateAdapter = true)
 data class MatchResponse(
-    val items: List<Match>
+    val items: List<NetworkMatch>
 )
 
 @JsonClass(generateAdapter = true)
 data class TeamResponse(
-    val items: List<Team>
+    val items: List<NetworkTeam>
 )
 
 @JsonClass(generateAdapter = true)
 data class SquadResponse(
-    val items: List<Squad>
+    val items: List<NetworkSquad>
 )
 
 @JsonClass(generateAdapter = true)
 data class StadiumResponse(
-    val items: List<Stadium>
+    val items: List<NetworkStadium>
 )
 
 

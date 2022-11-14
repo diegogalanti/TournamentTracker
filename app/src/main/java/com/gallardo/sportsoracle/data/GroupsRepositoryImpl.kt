@@ -3,19 +3,21 @@ package com.gallardo.sportsoracle.data
 import android.util.Log
 import androidx.lifecycle.LiveData
 import com.gallardo.sportsoracle.data.database.GroupsDao
-import com.gallardo.sportsoracle.data.database.SportsOracleDatabase
+import com.gallardo.sportsoracle.data.database.model.MatchEntity
+import com.gallardo.sportsoracle.data.database.model.TeamWithGroupResultEntity
 import com.gallardo.sportsoracle.data.network.FootballApi
-import com.gallardo.sportsoracle.model.*
+import com.gallardo.sportsoracle.data.network.model.NetworkGoal
+import com.gallardo.sportsoracle.data.network.model.NetworkGroup
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class GroupsRepositoryImpl @Inject constructor(private val groupsDao: GroupsDao) : GroupsRepository {
-    override fun getGroups(): LiveData<Map<Group, List<TeamWithGroupResult>>> {
+    override fun getGroups(): LiveData<Map<NetworkGroup, List<TeamWithGroupResultEntity>>> {
         return groupsDao.getGroups()
     }
 
-    override fun getTeamsWithGroupResults(): LiveData<List<TeamWithGroupResult>> {
+    override fun getTeamsWithGroupResults(): LiveData<List<TeamWithGroupResultEntity>> {
         return groupsDao.getTeamsWithGroupResults()
     }
 
@@ -42,9 +44,9 @@ class GroupsRepositoryImpl @Inject constructor(private val groupsDao: GroupsDao)
                 it.key
             }
         }
-        val listTeamsWithGroupResults = mutableListOf<TeamWithGroupResult>()
+        val listTeamsWithGroupResults = mutableListOf<TeamWithGroupResultEntity>()
         teams.forEach() { currentTeam ->
-            val teamWithResults = TeamWithGroupResult(
+            val teamWithResults = TeamWithGroupResultEntity(
                 key = currentTeam.key,
                 flag = currentTeam.flag,
                 name = currentTeam.name,
@@ -60,8 +62,8 @@ class GroupsRepositoryImpl @Inject constructor(private val groupsDao: GroupsDao)
     }
 
     private fun fillResult(
-        teamWithResults: TeamWithGroupResult,
-        matches: List<Match>, goals: List<Goal>
+        teamWithResults: TeamWithGroupResultEntity,
+        matches: List<MatchEntity>, goals: List<NetworkGoal>
     ) {
         var totalGoalFor = 0
         var totalGoalAgainst = 0

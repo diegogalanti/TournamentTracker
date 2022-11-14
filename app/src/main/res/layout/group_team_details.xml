@@ -4,7 +4,7 @@
     <data>
         <variable
             name="team"
-            type="com.gallardo.sportsoracle.model.Team" />
+            type="com.gallardo.sportsoracle.data.network.model.NetworkTeam" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

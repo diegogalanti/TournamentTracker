@@ -1,4 +1,4 @@
-package com.gallardo.sportsoracle.model
+package com.gallardo.sportsoracle.data.database.model
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
@@ -10,7 +10,7 @@ import java.util.*
 
 @Entity
 @TypeConverters(DateConverter::class)
-data class MatchWithTeamsDetails(
+data class MatchWithTeamsDetailsEntity(
     @PrimaryKey
     val key: String,
     @StringToDate

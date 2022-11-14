@@ -1,10 +1,10 @@
-package com.gallardo.sportsoracle.model
+package com.gallardo.sportsoracle.data.database.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity
-data class TeamWithGroupResult (
+data class TeamWithGroupResultEntity (
     @PrimaryKey
     val key : String,
     val name : String,

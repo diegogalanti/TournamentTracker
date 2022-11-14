@@ -3,9 +3,8 @@ package com.gallardo.sportsoracle.data
 import android.util.Log
 import androidx.lifecycle.LiveData
 import com.gallardo.sportsoracle.data.database.MatchesDao
-import com.gallardo.sportsoracle.data.database.SportsOracleDatabase
+import com.gallardo.sportsoracle.data.database.model.MatchWithTeamsDetailsEntity
 import com.gallardo.sportsoracle.data.network.FootballApi
-import com.gallardo.sportsoracle.model.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -16,7 +15,7 @@ class MatchesRepositoryImpl @Inject constructor(private val matchesDao: MatchesD
         return matchesDao.getMatchesDates()
     }
 
-    override fun getMatchesWithTeamsDetails(date: String): LiveData<List<MatchWithTeamsDetails>> {
+    override fun getMatchesWithTeamsDetails(date: String): LiveData<List<MatchWithTeamsDetailsEntity>> {
         return matchesDao.getMatchesWithTeamsDetails(date)
     }
 
@@ -33,10 +32,11 @@ class MatchesRepositoryImpl @Inject constructor(private val matchesDao: MatchesD
     private suspend fun refreshMatches() {
         val matches = FootballApi.retrofitService.getMatches().items
         val teams = FootballApi.retrofitService.getTeams().items
-        val listMatchesWithTeamsDetails = mutableListOf<MatchWithTeamsDetails>()
+        val listMatchesWithTeamsDetails = mutableListOf<MatchWithTeamsDetailsEntity>()
         matches.forEach() { currentMatch ->
             if (currentMatch.teamOneKey != "-1")
-                listMatchesWithTeamsDetails.add(MatchWithTeamsDetails(
+                listMatchesWithTeamsDetails.add(
+                    MatchWithTeamsDetailsEntity(
                     currentMatch.key,
                     currentMatch.date,
                     currentMatch.groupKey,
@@ -54,7 +54,8 @@ class MatchesRepositoryImpl @Inject constructor(private val matchesDao: MatchesD
                     teams.first {
                         it.key == currentMatch.teamTwoKey
                     }.flag
-                ))
+                )
+                )
         }
         matchesDao.insertMatches(matches)
         matchesDao.insertMatchesWithTeamsDetails(listMatchesWithTeamsDetails)

@@ -1,17 +1,13 @@
 package com.gallardo.sportsoracle.data
 
-import android.util.Log
 import androidx.lifecycle.LiveData
-import com.gallardo.sportsoracle.data.database.SportsOracleDatabase
-import com.gallardo.sportsoracle.data.network.FootballApi
-import com.gallardo.sportsoracle.model.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
+import com.gallardo.sportsoracle.data.database.model.TeamWithGroupResultEntity
+import com.gallardo.sportsoracle.data.network.model.NetworkGroup
 
 interface GroupsRepository {
-    fun getGroups(): LiveData<Map<Group, List<TeamWithGroupResult>>>
+    fun getGroups(): LiveData<Map<NetworkGroup, List<TeamWithGroupResultEntity>>>
 
-    fun getTeamsWithGroupResults(): LiveData<List<TeamWithGroupResult>>
+    fun getTeamsWithGroupResults(): LiveData<List<TeamWithGroupResultEntity>>
 
     suspend fun refreshGroupsDatabase()
 }
