@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
+    id 'com.google.dagger.hilt.android'
 }
 
 android {
@@ -81,4 +82,13 @@ dependencies {
 
     //Kotlin Extensions and Coroutines support for Room
     implementation "androidx.room:room-ktx:2.4.3"
+
+    //HILT
+    implementation "com.google.dagger:hilt-android:2.44"
+    kapt "com.google.dagger:hilt-compiler:2.44"
+}
+
+// Allow references to generated code HILT
+kapt {
+    correctErrorTypes true
 }
