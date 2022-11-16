@@ -2,26 +2,40 @@ package com.gallardo.sportsoracle.data
 
 import android.util.Log
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.Transformations
 import com.gallardo.sportsoracle.data.database.GroupsDao
 import com.gallardo.sportsoracle.data.database.model.GroupEntity
 import com.gallardo.sportsoracle.data.database.model.MatchEntity
 import com.gallardo.sportsoracle.data.database.model.TeamWithGroupResultEntity
+import com.gallardo.sportsoracle.data.database.model.asExternal
 import com.gallardo.sportsoracle.data.network.FootballApi
 import com.gallardo.sportsoracle.data.network.model.NetworkGoal
 import com.gallardo.sportsoracle.data.network.model.NetworkGroup
 import com.gallardo.sportsoracle.data.network.model.asEntity
+import com.gallardo.sportsoracle.model.Group
+import com.gallardo.sportsoracle.model.TeamWithGroupResult
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class GroupsRepositoryImpl @Inject constructor(private val groupsDao: GroupsDao) :
     GroupsRepository {
-    override fun getGroups(): LiveData<Map<GroupEntity, List<TeamWithGroupResultEntity>>> {
-        return groupsDao.getGroups()
+    override fun getGroups(): Flow<Map<Group, List<TeamWithGroupResult>>> {
+        return Transformations.map(groupsDao.getGroups()) {
+            it.mapValues { currentEntry ->
+                currentEntry.value.map { currentValue -> currentValue.asExternal() }
+            }.mapKeys { currentEntry ->
+                currentEntry.key.asExternal()
+            }
+
+        }
     }
 
-    override fun getTeamsWithGroupResults(): LiveData<List<TeamWithGroupResultEntity>> {
-        return groupsDao.getTeamsWithGroupResults()
+    override fun getTeamsWithGroupResults(): Flow<List<TeamWithGroupResult>> {
+        return Transformations.map(groupsDao.getTeamsWithGroupResults()) {
+            it.map { currentEntry -> currentEntry.asExternal() }
+        }
     }
 
     override suspend fun refreshGroupsDatabase() {

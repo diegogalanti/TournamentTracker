@@ -2,22 +2,28 @@ package com.gallardo.sportsoracle.data
 
 import android.util.Log
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.Transformations
 import com.gallardo.sportsoracle.data.database.MatchesDao
 import com.gallardo.sportsoracle.data.database.model.MatchWithTeamsDetailsEntity
+import com.gallardo.sportsoracle.data.database.model.asExternal
 import com.gallardo.sportsoracle.data.network.FootballApi
 import com.gallardo.sportsoracle.data.network.model.asEntity
+import com.gallardo.sportsoracle.model.MatchWithTeamsDetails
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class MatchesRepositoryImpl @Inject constructor(private val matchesDao: MatchesDao) : MatchesRepository {
 
-    override fun getMatchesDates(): LiveData<List<String>> {
+    override fun getMatchesDates(): Flow<List<String>> {
         return matchesDao.getMatchesDates()
     }
 
-    override fun getMatchesWithTeamsDetails(date: String): LiveData<List<MatchWithTeamsDetailsEntity>> {
-        return matchesDao.getMatchesWithTeamsDetails(date)
+    override fun getMatchesWithTeamsDetails(date: String): Flow<List<MatchWithTeamsDetails>> {
+        return Transformations.map(matchesDao.getMatchesWithTeamsDetails(date)) {
+            it.map { currentEntry ->  currentEntry.asExternal() }
+        }
     }
 
    override suspend fun refreshMatchesDatabase() {

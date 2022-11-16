@@ -9,26 +9,28 @@ import com.gallardo.sportsoracle.data.database.model.GroupEntity
 import com.gallardo.sportsoracle.data.database.model.MatchEntity
 import com.gallardo.sportsoracle.data.database.model.MatchWithTeamsDetailsEntity
 import com.gallardo.sportsoracle.data.database.model.TeamWithGroupResultEntity
+import com.gallardo.sportsoracle.model.MatchWithTeamsDetails
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface MatchesDao {
     @Query("SELECT * FROM GroupEntity " +
             "LEFT JOIN TeamWithGroupResultEntity ON GroupEntity.`gkey` = TeamWithGroupResultEntity.groupKey"
     )
-    fun getGroups(): LiveData<Map<GroupEntity, List<TeamWithGroupResultEntity>>>
+    fun getGroups(): Flow<Map<GroupEntity, List<TeamWithGroupResultEntity>>>
 
     @Query("SELECT DISTINCT date FROM MatchEntity " +
             "ORDER BY date")
-    fun getMatchesDates() : LiveData<List<String>>
+    fun getMatchesDates() : Flow<List<String>>
 
     @Query("SELECT * FROM TeamWithGroupResultEntity")
-    fun getTeamsWithGroupResults() : LiveData<List<TeamWithGroupResultEntity>>
+    fun getTeamsWithGroupResults() : Flow<List<TeamWithGroupResultEntity>>
 
     @Query(
         "SELECT * FROM MatchWithTeamsDetailsEntity " +
                 "WHERE MatchWithTeamsDetailsEntity.date = :date"
     )
-    fun getMatchesWithTeamsDetails(date: String) : LiveData<List<MatchWithTeamsDetailsEntity>>
+    fun getMatchesWithTeamsDetails(date: String) : Flow<List<MatchWithTeamsDetailsEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertGroups(groups: List<GroupEntity>)
