@@ -11,14 +11,13 @@ import coil.Coil
 import coil.request.ImageRequest
 import coil.size.Scale
 import com.gallardo.sportsoracle.R
-import com.gallardo.sportsoracle.data.database.model.GroupEntity
 import com.gallardo.sportsoracle.databinding.GroupFixedRowBinding
 import com.gallardo.sportsoracle.databinding.GroupScrollRowBinding
 import com.gallardo.sportsoracle.databinding.GroupTeamFlagBinding
 import com.gallardo.sportsoracle.databinding.TabItemBinding
-import com.gallardo.sportsoracle.data.network.model.NetworkGroup
-import com.gallardo.sportsoracle.data.database.model.MatchWithTeamsDetailsEntity
-import com.gallardo.sportsoracle.data.database.model.TeamWithGroupResultEntity
+import com.gallardo.sportsoracle.model.Group
+import com.gallardo.sportsoracle.model.MatchWithTeamsDetails
+import com.gallardo.sportsoracle.model.TeamWithGroupResult
 import com.gallardo.sportsoracle.view.rvadapter.GroupsListAdapter
 import com.gallardo.sportsoracle.view.rvadapter.MatchesListAdapter
 import com.google.android.material.tabs.TabLayout
@@ -30,11 +29,10 @@ import java.util.*
 @BindingAdapter("groups_list")
 fun bindGroupsListAdapter(
     recyclerView: RecyclerView,
-    groups: Map<GroupEntity, List<TeamWithGroupResultEntity>>?
+    groups: Map<Group, List<TeamWithGroupResult>>?
 ) {
     if (groups != null) {
         val adapter = recyclerView.adapter as GroupsListAdapter
-        Log.e("Oxi", groups.toString())
         adapter.submitList(groups.toList())
     }
 }
@@ -42,7 +40,7 @@ fun bindGroupsListAdapter(
 @BindingAdapter("matches_list")
 fun bindMatchesListAdapter(
     recyclerView: RecyclerView,
-    data: List<MatchWithTeamsDetailsEntity>?
+    data: List<MatchWithTeamsDetails>?
 ) {
     val adapter = recyclerView.adapter as MatchesListAdapter
     adapter.submitList(data)
@@ -51,7 +49,7 @@ fun bindMatchesListAdapter(
 @BindingAdapter("bind_flags")
 fun bindGroupTeamsFlags(
     gridLayout: GridLayout,
-    data: List<TeamWithGroupResultEntity>
+    data: List<TeamWithGroupResult>
 ) {
     if (gridLayout.childCount != 0) {
         data.forEachIndexed { index, team ->
@@ -76,7 +74,7 @@ fun bindGroupTeamsFlags(
 @BindingAdapter("teamsWithResults")
 fun bindGroupTeamsDetails(
     detailsCl: ConstraintLayout,
-    teamWithGroupResult: List<TeamWithGroupResultEntity>
+    teamWithGroupResult: List<TeamWithGroupResult>
 ) {
     Log.e("Oxi", teamWithGroupResult.toString())
     val tableFixed = detailsCl.findViewById<TableLayout>(R.id.table_fixed)

@@ -4,16 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <import type="com.gallardo.sportsoracle.data.database.model.GroupEntity"/>
-        <import type="com.gallardo.sportsoracle.data.database.model.TeamWithGroupResultEntity"/>
+        <import type="com.gallardo.sportsoracle.model.Group"/>
+        <import type="com.gallardo.sportsoracle.model.TeamWithGroupResult"/>
         <import type="java.util.List"/>
         <variable
             name="group"
-            type="GroupEntity" />
+            type="Group" />
 
         <variable
             name="teams"
-            type="List&lt;com.gallardo.sportsoracle.data.database.model.TeamWithGroupResultEntity>" />
+            type="List&lt;TeamWithGroupResult>" />
     </data>
 
     <com.google.android.material.card.MaterialCardView

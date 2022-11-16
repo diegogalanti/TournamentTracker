@@ -19,9 +19,8 @@ object DatabaseModule {
         return Room.databaseBuilder(
             context,
             SportsOracleDatabase::class.java,
-            "app_database"
+            SportsOracleDatabase.DATABASE_NAME
         )
-            .allowMainThreadQueries()
             .build()
     }
 }

@@ -1,11 +1,10 @@
-package com.gallardo.sportsoracle.data.database.model
+package com.gallardo.sportsoracle.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.gallardo.sportsoracle.model.TeamWithGroupResult
 
 @Entity
-data class TeamWithGroupResultEntity (
+data class TeamWithGroupResult (
     @PrimaryKey
     val key : String,
     val name : String,
@@ -24,5 +23,3 @@ data class TeamWithGroupResultEntity (
     var goalDiff = "0"
         get() = "$goalFor - $goalAgainst = ${goalFor - goalAgainst}"
 }
-
-fun TeamWithGroupResultEntity.asExternal() = TeamWithGroupResult(key,name,flag,groupKey,won,drawn,lost,goalFor,goalAgainst)

@@ -6,12 +6,12 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.gallardo.sportsoracle.databinding.MatchTableBinding
-import com.gallardo.sportsoracle.data.database.model.MatchWithTeamsDetailsEntity
+import com.gallardo.sportsoracle.model.MatchWithTeamsDetails
 
-class MatchesListAdapter : ListAdapter<MatchWithTeamsDetailsEntity, MatchesListAdapter.MatchViewHolder>(DiffCallback) {
+class MatchesListAdapter : ListAdapter<MatchWithTeamsDetails, MatchesListAdapter.MatchViewHolder>(DiffCallback) {
 
     class MatchViewHolder(private val binding: MatchTableBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind (match: MatchWithTeamsDetailsEntity) {
+        fun bind (match: MatchWithTeamsDetails) {
             binding.timeVar = match.time.toString()
             binding.teamOneNameVar = match.teamOneName
             binding.teamOneFlagVar = match.teamOneFlag
@@ -35,12 +35,12 @@ class MatchesListAdapter : ListAdapter<MatchWithTeamsDetailsEntity, MatchesListA
         )
     }
 
-    companion object DiffCallback : DiffUtil.ItemCallback<MatchWithTeamsDetailsEntity>() {
-        override fun areContentsTheSame(oldItem: MatchWithTeamsDetailsEntity, newItem: MatchWithTeamsDetailsEntity): Boolean {
+    companion object DiffCallback : DiffUtil.ItemCallback<MatchWithTeamsDetails>() {
+        override fun areContentsTheSame(oldItem: MatchWithTeamsDetails, newItem: MatchWithTeamsDetails): Boolean {
             return oldItem == newItem
         }
 
-        override fun areItemsTheSame(oldItem: MatchWithTeamsDetailsEntity, newItem: MatchWithTeamsDetailsEntity): Boolean {
+        override fun areItemsTheSame(oldItem: MatchWithTeamsDetails, newItem: MatchWithTeamsDetails): Boolean {
             return oldItem.key == newItem.key
         }
     }

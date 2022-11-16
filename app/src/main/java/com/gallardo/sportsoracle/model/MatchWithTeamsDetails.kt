@@ -1,4 +1,4 @@
-package com.gallardo.sportsoracle.data.database.model
+package com.gallardo.sportsoracle.model
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
@@ -6,12 +6,11 @@ import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 import com.gallardo.sportsoracle.data.database.DateConverter
 import com.gallardo.sportsoracle.data.network.StringToDate
-import com.gallardo.sportsoracle.model.MatchWithTeamsDetails
 import java.util.*
 
 @Entity
 @TypeConverters(DateConverter::class)
-data class MatchWithTeamsDetailsEntity(
+data class MatchWithTeamsDetails(
     @PrimaryKey
     val key: String,
     @StringToDate
@@ -29,16 +28,4 @@ data class MatchWithTeamsDetailsEntity(
     val teamTwoName: String,
     @ColumnInfo(name = "team_two_flag")
     val teamTwoFlag: String,
-)
-
-fun MatchWithTeamsDetailsEntity.asExternal() = MatchWithTeamsDetails(
-    key,
-    date,
-    groupKey,
-    stadiumKey,
-    time,
-    teamOneName,
-    teamOneFlag,
-    teamTwoName,
-    teamTwoFlag
 )

@@ -16,4 +16,8 @@ abstract class SportsOracleDatabase : RoomDatabase() {
     abstract val matchesDao: MatchesDao
 
     abstract val groupsDao: GroupsDao
+
+    companion object {
+        const val DATABASE_NAME = "app_database"
+    }
 }
